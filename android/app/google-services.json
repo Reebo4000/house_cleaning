@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "1011564574387",
+    "project_id": "house-cleaning-cf165",
+    "storage_bucket": "house-cleaning-cf165.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1011564574387:android:d5c427d910de373378a2c6",
+        "android_client_info": {
+          "package_name": "com.example.house_cleaning"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1011564574387-mqsoulqjc0bii0lk7kqous300sg7eo4c.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.house_cleaning",
+            "certificate_hash": "f08f21d3a24d597cf08043bb627f04573020c286"
+          }
+        },
+        {
+          "client_id": "1011564574387-r5gtj2ifdmoa7elu2o0h5kld1vtg4e2b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCnyDwq9hNkog7UTsaiIKzR93THwj2CNl0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1011564574387-r5gtj2ifdmoa7elu2o0h5kld1vtg4e2b.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1011564574387-8pa15b1hjontopsn8s7lhmbalnabeb6n.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.houseCleaning"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
