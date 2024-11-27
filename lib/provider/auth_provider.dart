@@ -189,8 +189,8 @@ class AuthProviderr with ChangeNotifier {
     }
     notifyListeners();
   }
-  //add user info to firestore
 
+//sign out from firebase
   Future<void> signOut() async {
     await _auth.signOut();
     //google sign out

@@ -59,7 +59,7 @@ class _RoleSelectionPageState extends State<RoleSelectionPage> {
                       // Proceed to next screen based on role
                       if (selectedRole == 'Cleaner') {
                         // Navigate to CleanerScreen
-                        if (FirebaseAuth.instance.currentUser == null) {
+                        if (FirebaseAuth.instance.currentUser != null) {
                           Navigator.pushNamed(context, LoginScreen.routeName,
                               arguments: selectedRole);
                         } else {
