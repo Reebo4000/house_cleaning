@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:house_cleaning/utils/app_styles.dart';
 import 'package:house_cleaning/utils/color_manager.dart';
 import 'package:house_cleaning/utils/images_assets.dart';
 import 'package:house_cleaning/screens/auth/login_screen.dart';
+import 'package:house_cleaning/screens/bottom_bar_screen/bottom_bar_screen.dart';
 import 'package:house_cleaning/screens/auth/widgets/custom_elevated_button.dart';
 
 class RoleSelectionPage extends StatefulWidget {
@@ -57,10 +59,15 @@ class _RoleSelectionPageState extends State<RoleSelectionPage> {
                       // Proceed to next screen based on role
                       if (selectedRole == 'Cleaner') {
                         // Navigate to CleanerScreen
-                        Navigator.pushNamed(context, LoginScreen.routeName,
-                            arguments: selectedRole);
+                        if (FirebaseAuth.instance.currentUser == null) {
+                          Navigator.pushNamed(context, LoginScreen.routeName,
+                              arguments: selectedRole);
+                        } else {
+                          //TODO
+                        }
                       } else if (selectedRole == 'Client') {
                         // Navigate to ClientScreen
+                        Navigator.pushNamed(context, BottomBarScreen.routeName);
                       }
                     }
                   : null,

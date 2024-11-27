@@ -41,6 +41,7 @@ dependencies:
   firebase_storage: ^12.3.5
   flutter:
     sdk: flutter
+  flutter_facebook_auth: ^7.1.1
   flutter_iconly: ^1.0.2
   flutter_svg: ^2.0.14
   fluttertoast: ^8.2.4

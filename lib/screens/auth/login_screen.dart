@@ -215,9 +215,12 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                           ),
                           const SizedBox(width: 16),
+
+                          // Facebook Login Logic
+
                           IconButton(
-                            onPressed: () {
-                              // Facebook Login Logic
+                            onPressed: () async {
+                              await authProvider.signInWithFacebook();
                             },
                             icon: const Icon(FontAwesomeIcons.facebook),
                             color: Colors.blue,

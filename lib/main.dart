@@ -84,7 +84,8 @@ class _HouseCleaningAppState extends State<HouseCleaningApp> {
               ContinueRegisterationScreen.continueRegisterationRoute:
                   (context) => const ContinueRegisterationScreen(),
             },
-            initialRoute: RoleSelectionPage.routeName,
+            //user cleaner or client // logged in or not
+            initialRoute: SplashScreen.splashRoute,
             //SplashScreen.splashRoute,
             theme: ThemeManager.themeData(
                 isDarkTheme: themeProvider.getIsDarkTheme, context: context),

@@ -7,6 +7,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:house_cleaning/screens/auth/login_screen.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:supabase_flutter/supabase_flutter.dart' hide User;
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 
@@ -30,10 +31,11 @@ class AuthProviderr with ChangeNotifier {
   late TextEditingController passwordRController;
   late TextEditingController cPasswordRController;
   late TextEditingController addressRController;
-  
+
   final InternetConnectionChecker connectionChecker =
       InternetConnectionChecker();
 
+//login with firebase
   Future<void> loginWithFirebase() async {
     try {
       // first check network connection
@@ -267,18 +269,64 @@ class AuthProviderr with ChangeNotifier {
       : true;
 
   ///
-  void updateProfilePic(XFile? image) {
-    profilePic = image;
-    notifyListeners();
-  }
+  Future<UserCredential?> signInWithFacebook() async {
+    try {
+      // Trigger the Facebook sign-in flow
+      final LoginResult loginResult = await FacebookAuth.instance.login();
 
-  void updateFrontIdPic(XFile? image) {
-    frontIdPic = image;
-    notifyListeners();
-  }
+      // Check if the login was successful
+      if (loginResult.status == LoginStatus.success) {
+        // Create a credential from the access token
+        final OAuthCredential facebookAuthCredential =
+            FacebookAuthProvider.credential(
+          '${loginResult.accessToken?.tokenString}',
+        );
 
-  void updateBackIdPic(XFile? image) {
-    backIdPic = image;
-    notifyListeners();
+        // Sign in with Firebase using the credential
+        final UserCredential userCredential = await FirebaseAuth.instance
+            .signInWithCredential(facebookAuthCredential);
+
+        // Show success toast
+        Fluttertoast.showToast(
+          backgroundColor: Colors.white,
+          textColor: Colors.black,
+          msg: "Registration successful",
+        );
+
+        return userCredential;
+      } else {
+        // Handle Facebook login failure
+        Fluttertoast.showToast(
+          backgroundColor: Colors.white,
+          textColor: Colors.black,
+          msg: "Facebook login failed: ${loginResult.message}",
+        );
+        return null;
+      }
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'account-exists-with-different-credential') {
+        // Show specific error for existing account
+        Fluttertoast.showToast(
+          backgroundColor: Colors.white,
+          textColor: Colors.black,
+          msg: "Account already exists with a different credential",
+        );
+      } else {
+        // Handle other FirebaseAuth exceptions
+        Fluttertoast.showToast(
+          backgroundColor: Colors.white,
+          textColor: Colors.black,
+          msg: "Firebase Auth error: ${e.message}",
+        );
+      }
+    } catch (e) {
+      // Handle any other errors
+      Fluttertoast.showToast(
+        backgroundColor: Colors.white,
+        textColor: Colors.black,
+        msg: "An unexpected error occurred: $e",
+      );
+    }
+    return null;
   }
 }
