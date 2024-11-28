@@ -179,6 +179,8 @@ class _LoginScreenState extends State<LoginScreen> {
                             authProvider.isLoading = true;
                             setState(() {});
                             await authProvider.loginWithFirebase();
+
+                            
                           }
                         },
                       ),

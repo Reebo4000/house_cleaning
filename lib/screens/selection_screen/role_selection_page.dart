@@ -6,6 +6,7 @@ import 'package:house_cleaning/utils/images_assets.dart';
 import 'package:house_cleaning/screens/auth/login_screen.dart';
 import 'package:house_cleaning/screens/bottom_bar_screen/bottom_bar_screen.dart';
 import 'package:house_cleaning/screens/auth/widgets/custom_elevated_button.dart';
+import 'package:house_cleaning/screens/cleaner_profile/cleaner_profile_screen.dart';
 
 class RoleSelectionPage extends StatefulWidget {
   const RoleSelectionPage({super.key});
@@ -59,11 +60,13 @@ class _RoleSelectionPageState extends State<RoleSelectionPage> {
                       // Proceed to next screen based on role
                       if (selectedRole == 'Cleaner') {
                         // Navigate to CleanerScreen
-                        if (FirebaseAuth.instance.currentUser != null) {
+                        if (FirebaseAuth.instance.currentUser == null) {
                           Navigator.pushNamed(context, LoginScreen.routeName,
                               arguments: selectedRole);
                         } else {
-                          //TODO
+                          Navigator.pushNamed(context,
+                              CleanerProfilePage.cleanerProfilerouteName,
+                              arguments: selectedRole);
                         }
                       } else if (selectedRole == 'Client') {
                         // Navigate to ClientScreen
