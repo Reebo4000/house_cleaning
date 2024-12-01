@@ -73,6 +73,12 @@ class _ContinueRegisterationScreenState
   }
 
   @override
+  void dispose() {
+    services = [];
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -212,11 +218,18 @@ class _ContinueRegisterationScreenState
                         ),
                         child: CustomElevatedButton(
                           text: "Register",
-                          onPressed: () {
+                          onPressed: () async {
                             setState(() {
                               authProvider.isLoading = true;
                             });
-                            authProvider.registerWithFirebase(context: context);
+
+                            if (context.mounted) {
+                              await authProvider.registerWithFirebase(
+                                  context: context);
+                            }
+
+                            //send verification email
+                            await authProvider.verifyEmail();
 
                             log('Selected Services: ${authProvider.selectedServices}');
                           },

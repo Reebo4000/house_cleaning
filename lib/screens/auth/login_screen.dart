@@ -1,17 +1,22 @@
 import 'dart:io';
+import 'dart:async';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:house_cleaning/utils/app_styles.dart';
 import 'package:house_cleaning/utils/images_assets.dart';
 import 'package:house_cleaning/utils/color_manager.dart';
 import 'package:house_cleaning/provider/auth_provider.dart';
 import 'package:house_cleaning/screens/auth/valditors.dart';
+import 'package:house_cleaning/utils/shared_preferences.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:house_cleaning/utils/loading_manager_widget.dart';
 import 'package:house_cleaning/screens/auth/register_screen.dart';
+import 'package:house_cleaning/screens/bottom_bar_screen/bottom_bar_screen.dart';
 import 'package:house_cleaning/screens/auth/widgets/custom_text_form_field.dart';
 import 'package:house_cleaning/screens/auth/widgets/custom_elevated_button.dart';
+import 'package:house_cleaning/screens/cleaner_profile/cleaner_profile_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -24,7 +29,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   late final FocusNode emailFocusNode;
   late final FocusNode passwordFocusNode;
-
+  late final Timer timer;
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   bool obsecureText = true;
   late AuthProviderr authProvider;
@@ -37,6 +42,12 @@ class _LoginScreenState extends State<LoginScreen> {
 
     authProvider.passwordController = TextEditingController();
     authProvider.emailController = TextEditingController();
+    timer = Timer.periodic(
+      const Duration(seconds: 3),
+      (timer) async {
+        await FirebaseAuth.instance.currentUser?.reload();
+      },
+    );
     super.initState();
   }
 
@@ -52,9 +63,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // final themeProvider = Provider.of<ThemeProvider>(context);
-    final authProvider = Provider.of<AuthProviderr>(context);
-
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus(); // Dismiss keyboard on tap outside
@@ -176,11 +184,34 @@ class _LoginScreenState extends State<LoginScreen> {
                         onPressed: () async {
                           if (formKey.currentState!.validate()) {
                             formKey.currentState!.save();
-                            authProvider.isLoading = true;
-                            setState(() {});
-                            await authProvider.loginWithFirebase();
 
-                            
+                            timer.cancel();
+
+                            await authProvider.loginWithFirebase();
+                            if (FirebaseAuth.instance.currentUser != null &&
+                                FirebaseAuth
+                                        .instance.currentUser?.emailVerified ==
+                                    true &&
+                                CacheHelper.getData(key: "user_role") ==
+                                    'Cleaner') {
+                              if (context.mounted) {
+                                Navigator.pushReplacementNamed(
+                                  context,
+                                  CleanerProfilePage.cleanerProfilerouteName,
+                                );
+                              }
+                            } else if (FirebaseAuth.instance.currentUser !=
+                                    null &&
+                                FirebaseAuth
+                                        .instance.currentUser?.emailVerified ==
+                                    true) {
+                              if (context.mounted) {
+                                Navigator.pushReplacementNamed(
+                                  context,
+                                  BottomBarScreen.routeName,
+                                );
+                              }
+                            }
                           }
                         },
                       ),
@@ -202,44 +233,45 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
 
                       // Social Login Buttons
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          GestureDetector(
-                            onTap: () {
-                              // Google Login Logic
-                              authProvider.googleSignIn();
-                            },
-                            child: SvgPicture.asset(
-                              Assets.imagesGoogle,
-                              width: 30,
-                              height: 30,
-                            ),
-                          ),
-                          const SizedBox(width: 16),
 
-                          // Facebook Login Logic
+                      // Row(
+                      //   mainAxisAlignment: MainAxisAlignment.center,
+                      //   children: [
+                      //     GestureDetector(
+                      //       onTap: () {
+                      //         // Google Login Logic
+                      //         authProvider.googleSignIn();
+                      //       },
+                      //       child: SvgPicture.asset(
+                      //         Assets.imagesGoogle,
+                      //         width: 30,
+                      //         height: 30,
+                      //       ),
+                      //     ),
+                      //     const SizedBox(width: 16),
 
-                          IconButton(
-                            onPressed: () async {
-                              await authProvider.signInWithFacebook();
-                            },
-                            icon: const Icon(FontAwesomeIcons.facebook),
-                            color: Colors.blue,
-                            iconSize: 30,
-                          ),
-                          const SizedBox(width: 16),
-                          if (Platform.isIOS)
-                            IconButton(
-                              onPressed: () {
-                                // Apple Login Logic
-                              },
-                              icon: const Icon(FontAwesomeIcons.apple),
-                              color: Colors.black,
-                              iconSize: 30,
-                            ),
-                        ],
-                      ),
+                      //     // Facebook Login Logic
+
+                      //     IconButton(
+                      //       onPressed: () async {
+                      //         await authProvider.signInWithFacebook();
+                      //       },
+                      //       icon: const Icon(FontAwesomeIcons.facebook),
+                      //       color: Colors.blue,
+                      //       iconSize: 30,
+                      //     ),
+                      //     const SizedBox(width: 16),
+                      //     if (Platform.isIOS)
+                      //       IconButton(
+                      //         onPressed: () {
+                      //           // Apple Login Logic
+                      //         },
+                      //         icon: const Icon(FontAwesomeIcons.apple),
+                      //         color: Colors.black,
+                      //         iconSize: 30,
+                      //       ),
+                      //   ],
+                      // ),
 
                       // Sign Up Link
                       Row(

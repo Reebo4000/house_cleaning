@@ -1,9 +1,13 @@
+import 'dart:developer';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:house_cleaning/utils/app_styles.dart';
 import 'package:house_cleaning/utils/color_manager.dart';
 import 'package:house_cleaning/utils/images_assets.dart';
+import 'package:house_cleaning/utils/shared_preferences.dart';
 import 'package:house_cleaning/screens/auth/login_screen.dart';
+import 'package:house_cleaning/provider/user_role_provider.dart';
 import 'package:house_cleaning/screens/bottom_bar_screen/bottom_bar_screen.dart';
 import 'package:house_cleaning/screens/auth/widgets/custom_elevated_button.dart';
 import 'package:house_cleaning/screens/cleaner_profile/cleaner_profile_screen.dart';
@@ -17,6 +21,13 @@ class RoleSelectionPage extends StatefulWidget {
 
 class _RoleSelectionPageState extends State<RoleSelectionPage> {
   String? selectedRole;
+
+  late UserRoleProvider userRoleProvider;
+  @override
+  void initState() {
+    userRoleProvider = Provider.of<UserRoleProvider>(context, listen: false);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +57,7 @@ class _RoleSelectionPageState extends State<RoleSelectionPage> {
               crossAxisSpacing: 16,
               mainAxisSpacing: 16,
               children: [
-                roleCard('Cleaner', Icons.cleaning_services, 'Find Jobs'),
+                roleCard("Cleaner", Icons.cleaning_services, 'Find Jobs'),
                 roleCard('Client', Icons.home, 'Book Services'),
               ],
             ),
@@ -59,19 +70,40 @@ class _RoleSelectionPageState extends State<RoleSelectionPage> {
                   ? () {
                       // Proceed to next screen based on role
                       if (selectedRole == 'Cleaner') {
+                        userRoleProvider.setUserRole("Cleaner");
+                        CacheHelper.saveData(
+                            key: 'user_role', value: 'Cleaner');
+
                         // Navigate to CleanerScreen
-                        if (FirebaseAuth.instance.currentUser == null) {
-                          Navigator.pushNamed(context, LoginScreen.routeName,
+                        if (FirebaseAuth.instance.currentUser == null ||
+                            !FirebaseAuth.instance.currentUser!.emailVerified) {
+                          Navigator.pushReplacementNamed(
+                              context, LoginScreen.routeName,
                               arguments: selectedRole);
                         } else {
-                          Navigator.pushNamed(context,
+                          Navigator.pushReplacementNamed(context,
                               CleanerProfilePage.cleanerProfilerouteName,
                               arguments: selectedRole);
                         }
                       } else if (selectedRole == 'Client') {
+                        userRoleProvider.setUserRole("Client");
+                        //save user role to cache
+                        CacheHelper.saveData(key: 'user_role', value: 'Client');
+
                         // Navigate to ClientScreen
-                        Navigator.pushNamed(context, BottomBarScreen.routeName);
+
+                        if (FirebaseAuth.instance.currentUser == null ||
+                            !FirebaseAuth.instance.currentUser!.emailVerified) {
+                          Navigator.pushReplacementNamed(
+                              context, LoginScreen.routeName,
+                              arguments: selectedRole);
+                        } else {
+                          Navigator.pushReplacementNamed(
+                              context, BottomBarScreen.routeName,
+                              arguments: selectedRole);
+                        }
                       }
+                      log(selectedRole!);
                     }
                   : null,
             ),

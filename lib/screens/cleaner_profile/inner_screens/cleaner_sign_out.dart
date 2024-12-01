@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:house_cleaning/provider/auth_provider.dart';
+import 'package:house_cleaning/screens/auth/login_screen.dart';
+import 'package:house_cleaning/screens/selection_screen/role_selection_page.dart';
 
 class CleanerSignOut extends StatelessWidget {
   const CleanerSignOut({super.key});
@@ -36,7 +38,8 @@ class CleanerSignOut extends StatelessWidget {
   }
 
   void _showSignOutConfirmation(BuildContext context) {
-    AuthProviderr authProvider = Provider.of<AuthProviderr>(context);
+    AuthProviderr authProvider =
+        Provider.of<AuthProviderr>(context, listen: false);
 
     showDialog(
       context: context,
@@ -70,6 +73,6 @@ class CleanerSignOut extends StatelessWidget {
     // هنا هخليه يتوجه الي صفحه تسجيل الدخول ي عبدالله
 
     Navigator.of(context).pushReplacementNamed(
-        '/login'); // افترض أن صفحة تسجيل الدخول هي '/login'
+        RoleSelectionPage.routeName); // افترض أن صفحة تسجيل الدخول هي '/login'
   }
 }

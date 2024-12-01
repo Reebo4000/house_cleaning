@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
@@ -8,6 +9,7 @@ import 'package:house_cleaning/utils/color_manager.dart';
 import 'package:house_cleaning/utils/images_assets.dart';
 import 'package:house_cleaning/provider/auth_provider.dart';
 import 'package:house_cleaning/screens/auth/valditors.dart';
+import 'package:house_cleaning/utils/shared_preferences.dart';
 import 'package:house_cleaning/screens/auth/login_screen.dart';
 import 'package:house_cleaning/utils/loading_manager_widget.dart';
 import 'package:house_cleaning/screens/auth/widgets/pick_image_widget.dart';
@@ -59,6 +61,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
       },
       child: Scaffold(
         appBar: AppBar(
+          systemOverlayStyle: SystemUiOverlayStyle.dark,
+          
           elevation: 2,
           shadowColor: ColorManager.primaryColor,
           backgroundColor: ColorManager.primaryColor,
@@ -262,13 +266,31 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
                       if (formKey.currentState!.validate()) {
                         formKey.currentState!.save();
-                        Navigator.of(context).pushNamed(
-                          ContinueRegisterationScreen
-                              .continueRegisterationRoute,
-                        );
+
+                        if (CacheHelper.getData(key: "user_role") ==
+                            "Cleaner") {
+                          Navigator.of(context).pushNamed(
+                            ContinueRegisterationScreen
+                                .continueRegisterationRoute,
+                          );
+                        } else {
+                          setState(() {
+                            authProvider.isLoading = true;
+                          });
+
+                          if (context.mounted) {
+                            await authProvider.registerWithFirebase(
+                                context: context);
+                          }
+
+                          //send verification email
+                          await authProvider.verifyEmail();
+                        }
                       }
                     },
-                    text: "Continue Registration",
+                    text: CacheHelper.getData(key: "user_role") == "Cleaner"
+                        ? "Continue Registration"
+                        : "Sign Up",
                   ),
                   const SizedBox(height: 10),
 
@@ -284,8 +306,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       ),
                       TextButton(
                         onPressed: () {
-                          Navigator.of(context)
-                              .pushReplacementNamed(LoginScreen.routeName);
+                          WidgetsBinding.instance.addPostFrameCallback((_) {
+                            Navigator.of(context)
+                                .pushReplacementNamed(LoginScreen.routeName);
+                          });
                         },
                         child: Text(
                           "Sign In",

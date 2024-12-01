@@ -15,6 +15,7 @@ class ServicesCategoriesGridView extends StatelessWidget {
       physics: const NeverScrollableScrollPhysics(),
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
+        mainAxisSpacing: 15,
       ),
       itemCount: AppConstants.cleaningCategoryList.length,
       itemBuilder: (context, index) {
@@ -27,7 +28,7 @@ class ServicesCategoriesGridView extends StatelessWidget {
                   AppConstants.cleaningCategoryList[index].image,
                   height: 150.0,
                   width: 150.0,
-                  fit: BoxFit.cover,
+                  fit: BoxFit.fill,
                 ),
               ),
               const SizedBox(
@@ -40,10 +41,12 @@ class ServicesCategoriesGridView extends StatelessWidget {
                     color: ColorManager.primaryColor,
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  child: Text(
-                    AppConstants.cleaningCategoryList[index].title,
-                    style: AppStyles.styleSemiBold20(context).copyWith(
-                      color: Colors.white,
+                  child: FittedBox(
+                    child: Text(
+                      AppConstants.cleaningCategoryList[index].title,
+                      style: AppStyles.styleSemiBold20(context).copyWith(
+                        color: Colors.white,
+                      ),
                     ),
                   ),
                 ),

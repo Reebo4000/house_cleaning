@@ -4,7 +4,9 @@ import 'package:provider/provider.dart';
 import 'package:house_cleaning/utils/app_styles.dart';
 import 'package:house_cleaning/utils/color_manager.dart';
 import 'package:house_cleaning/utils/images_assets.dart';
+import 'package:house_cleaning/provider/auth_provider.dart';
 import 'package:house_cleaning/provider/theme_provider.dart';
+import 'package:house_cleaning/screens/selection_screen/role_selection_page.dart';
 import 'package:house_cleaning/screens/bottom_bar_screen/widgets/swiper_home_page.dart';
 import 'package:house_cleaning/screens/bottom_bar_screen/widgets/search_text_field.dart';
 import 'package:house_cleaning/screens/bottom_bar_screen/widgets/booking_summary_card.dart';
@@ -16,6 +18,8 @@ class HomeScreenWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final AuthProviderr authProviderr =
+        Provider.of<AuthProviderr>(context, listen: false);
     final Size size = MediaQuery.of(context).size;
     final themeProvider = Provider.of<ThemeProvider>(context);
     return Scaffold(
@@ -33,18 +37,9 @@ class HomeScreenWidget extends StatelessWidget {
           alignment: Alignment.center,
           children: [
             Image.asset(
-              Assets.imagesLogoSplash,
+              Assets.imagesLogoSplashNoTitle,
               width: 80,
               height: 80,
-            ),
-            Positioned(
-              bottom: 10,
-              child: Text("LAMEAN",
-                  textAlign: TextAlign.center,
-                  style: AppStyles.styleSemiBold14(context).copyWith(
-                      color: themeProvider.getIsDarkTheme
-                          ? Colors.white
-                          : Colors.white)),
             ),
           ],
         ),
@@ -52,7 +47,7 @@ class HomeScreenWidget extends StatelessWidget {
         centerTitle: true,
         title: Text(
           'House Cleaning',
-          style: AppStyles.styleSemiBold24(context).copyWith(
+          style: AppStyles.styleBold20(context).copyWith(
             color: Colors.white,
           ),
         ),
@@ -75,6 +70,9 @@ class HomeScreenWidget extends StatelessWidget {
                 ),
                 onPressed: () {
                   // Navigate to profile screen
+                  authProviderr.signOut();
+                  Navigator.of(context)
+                      .pushReplacementNamed(RoleSelectionPage.routeName);
                 },
               ),
             ],

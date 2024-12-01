@@ -9,11 +9,14 @@ import 'package:house_cleaning/utils/theme_manager.dart';
 import 'package:house_cleaning/provider/auth_provider.dart';
 import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:house_cleaning/provider/theme_provider.dart';
+import 'package:house_cleaning/utils/shared_preferences.dart';
 import 'package:house_cleaning/screens/auth/login_screen.dart';
+import 'package:house_cleaning/provider/user_role_provider.dart';
 import 'package:house_cleaning/screens/auth/register_screen.dart';
 import 'package:house_cleaning/screens/splash/splash_screen.dart';
 import 'package:supabase_flutter/supabase_flutter.dart' hide User;
 import 'package:house_cleaning/screens/onboarding/on_borading_screen.dart';
+import 'package:house_cleaning/screens/auth/email_verification_screen.dart';
 import 'package:house_cleaning/screens/cleaner_profile/inner_screens/help.dart';
 import 'package:house_cleaning/screens/auth/continue_registeration_screen.dart';
 import 'package:house_cleaning/screens/bottom_bar_screen/bottom_bar_screen.dart';
@@ -32,6 +35,7 @@ void main() async {
 
   //initialize firebase
   WidgetsFlutterBinding.ensureInitialized();
+  await CacheHelper.init();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
@@ -71,6 +75,9 @@ class _HouseCleaningAppState extends State<HouseCleaningApp> {
         providers: [
           ChangeNotifierProvider(create: (context) => ThemeProvider()),
           ChangeNotifierProvider(create: (context) => AuthProviderr()),
+          ChangeNotifierProvider(
+            create: (context) => UserRoleProvider(),
+          )
         ],
         child:
             Consumer<ThemeProvider>(builder: (context, themeProvider, child) {
@@ -94,9 +101,19 @@ class _HouseCleaningAppState extends State<HouseCleaningApp> {
               CleanerSignOut.cleanerSignOutRouteName: (context) =>
                   const CleanerSignOut(),
               HelpPage.helpPagerouteName: (context) => const HelpPage(),
+              EmailVerificationScreen.routeName: (context) =>
+                  const EmailVerificationScreen(),
             },
             //user cleaner or client // logged in or not
-            initialRoute: SplashScreen.splashRoute,
+            initialRoute: FirebaseAuth.instance.currentUser != null &&
+                    CacheHelper.getData(key: 'user_role') == 'Cleaner' &&
+                    FirebaseAuth.instance.currentUser!.emailVerified
+                ? CleanerProfilePage.cleanerProfilerouteName
+                : FirebaseAuth.instance.currentUser != null &&
+                        CacheHelper.getData(key: 'user_role') == 'Client' &&
+                        FirebaseAuth.instance.currentUser!.emailVerified
+                    ? BottomBarScreen.routeName
+                    : SplashScreen.splashRoute,
             //SplashScreen.splashRoute,
             theme: ThemeManager.themeData(
                 isDarkTheme: themeProvider.getIsDarkTheme, context: context),
