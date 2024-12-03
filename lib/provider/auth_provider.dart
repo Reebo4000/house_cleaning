@@ -67,8 +67,8 @@ class AuthProviderr with ChangeNotifier {
         Fluttertoast.showToast(
           msg: "Please verify your email before logging in.",
         );
-        await _auth
-            .signOut(); // Optional: Sign out the user if email is not verified
+        // await _auth
+        //     .signOut(); // Optional: Sign out the user if email is not verified
         isLoading = false; // Stop loading
         notifyListeners(); // Ensure UI updates
         return;

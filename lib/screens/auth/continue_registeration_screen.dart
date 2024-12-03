@@ -136,6 +136,7 @@ class _ContinueRegisterationScreenState
                           return GestureDetector(
                             onTap: () {
                               toggleService(service['title']);
+                              log('Selected Services: ${authProvider.selectedServices}');
                             },
                             child: Card(
                               elevation: 4.0,

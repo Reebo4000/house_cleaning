@@ -17,13 +17,13 @@ import 'package:house_cleaning/screens/splash/splash_screen.dart';
 import 'package:supabase_flutter/supabase_flutter.dart' hide User;
 import 'package:house_cleaning/screens/onboarding/on_borading_screen.dart';
 import 'package:house_cleaning/screens/auth/email_verification_screen.dart';
-import 'package:house_cleaning/screens/cleaner_profile/inner_screens/help.dart';
+import 'package:house_cleaning/screens/cleaner_profile/drawer_items/help.dart';
 import 'package:house_cleaning/screens/auth/continue_registeration_screen.dart';
-import 'package:house_cleaning/screens/bottom_bar_screen/bottom_bar_screen.dart';
 import 'package:house_cleaning/screens/selection_screen/role_selection_page.dart';
-import 'package:house_cleaning/screens/cleaner_profile/inner_screens/settings.dart';
-import 'package:house_cleaning/screens/cleaner_profile/cleaner_profile_screen.dart';
-import 'package:house_cleaning/screens/cleaner_profile/inner_screens/cleaner_sign_out.dart';
+import 'package:house_cleaning/screens/cleaner_profile/drawer_items/settings.dart';
+import 'package:house_cleaning/screens/client/bottom_bar_screen/bottom_bar_screen.dart';
+import 'package:house_cleaning/screens/cleaner_profile/drawer_items/cleaner_sign_out.dart';
+import 'package:house_cleaning/screens/cleaner_profile/drawer_items/cleaner_profile_screen.dart';
 
 void main() async {
 //initialize supabase
@@ -105,8 +105,7 @@ class _HouseCleaningAppState extends State<HouseCleaningApp> {
                   const EmailVerificationScreen(),
             },
             //user cleaner or client // logged in or not
-            initialRoute: 
-            FirebaseAuth.instance.currentUser != null &&
+            initialRoute: FirebaseAuth.instance.currentUser != null &&
                     CacheHelper.getData(key: 'user_role') == 'Cleaner' &&
                     FirebaseAuth.instance.currentUser!.emailVerified
                 ? CleanerProfilePage.cleanerProfilerouteName

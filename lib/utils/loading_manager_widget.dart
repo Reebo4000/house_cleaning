@@ -19,7 +19,7 @@ class LoadingManager extends StatelessWidget {
             child: CircularProgressIndicator(
               color: ColorManager.primaryColor,
             ),
-          )
+          ),
         ]
       ],
     );

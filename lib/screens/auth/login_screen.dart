@@ -1,6 +1,4 @@
-import 'dart:io';
 import 'dart:async';
-import 'package:flutter_svg/svg.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -11,13 +9,12 @@ import 'package:house_cleaning/utils/color_manager.dart';
 import 'package:house_cleaning/provider/auth_provider.dart';
 import 'package:house_cleaning/screens/auth/valditors.dart';
 import 'package:house_cleaning/utils/shared_preferences.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:house_cleaning/utils/loading_manager_widget.dart';
 import 'package:house_cleaning/screens/auth/register_screen.dart';
-import 'package:house_cleaning/screens/bottom_bar_screen/bottom_bar_screen.dart';
 import 'package:house_cleaning/screens/auth/widgets/custom_text_form_field.dart';
 import 'package:house_cleaning/screens/auth/widgets/custom_elevated_button.dart';
-import 'package:house_cleaning/screens/cleaner_profile/cleaner_profile_screen.dart';
+import 'package:house_cleaning/screens/client/bottom_bar_screen/bottom_bar_screen.dart';
+import 'package:house_cleaning/screens/cleaner_profile/drawer_items/cleaner_profile_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});

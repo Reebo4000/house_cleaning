@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:house_cleaning/utils/app_styles.dart';
 import 'package:house_cleaning/utils/color_manager.dart';
 import 'package:house_cleaning/utils/images_assets.dart';
-import 'package:house_cleaning/screens/cleaner_profile/inner_screens/help.dart';
-import 'package:house_cleaning/screens/cleaner_profile/inner_screens/settings.dart';
-import 'package:house_cleaning/screens/cleaner_profile/inner_screens/cleaner_sign_out.dart';
+import 'package:house_cleaning/screens/cleaner_profile/drawer_items/help.dart';
+import 'package:house_cleaning/screens/cleaner_profile/drawer_items/settings.dart';
+import 'package:house_cleaning/screens/cleaner_profile/drawer_items/cleaner_sign_out.dart';
 
 class CleanerProfilePage extends StatefulWidget {
   static const cleanerProfilerouteName = '/cleaner_profile';

@@ -5,11 +5,11 @@ import 'package:house_cleaning/utils/images_assets.dart';
 import 'package:house_cleaning/utils/color_manager.dart';
 import 'package:house_cleaning/provider/auth_provider.dart';
 import 'package:house_cleaning/screens/auth/login_screen.dart';
-import 'package:house_cleaning/screens/cleaner_profile/inner_screens/help.dart';
+import 'package:house_cleaning/screens/cleaner_profile/drawer_items/help.dart';
 import 'package:house_cleaning/screens/selection_screen/role_selection_page.dart';
-import 'package:house_cleaning/screens/cleaner_profile/inner_screens/settings.dart';
-import 'package:house_cleaning/screens/cleaner_profile/inner_screens/cleaner_sign_out.dart';
-import 'package:house_cleaning/screens/cleaner_profile/inner_screens/cleaner_sign_out.dart';
+import 'package:house_cleaning/screens/cleaner_profile/drawer_items/settings.dart';
+import 'package:house_cleaning/screens/cleaner_profile/drawer_items/cleaner_sign_out.dart';
+import 'package:house_cleaning/screens/cleaner_profile/drawer_items/cleaner_sign_out.dart';
 
 class CleanerSignOut extends StatefulWidget {
   const CleanerSignOut({super.key});
@@ -113,6 +113,7 @@ class _CleanerSignOutState extends State<CleanerSignOut> {
         ),
       ),
       body: Center(
+
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

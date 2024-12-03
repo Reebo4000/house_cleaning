@@ -62,7 +62,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
       child: Scaffold(
         appBar: AppBar(
           systemOverlayStyle: SystemUiOverlayStyle.dark,
-          
           elevation: 2,
           shadowColor: ColorManager.primaryColor,
           backgroundColor: ColorManager.primaryColor,
@@ -269,7 +268,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
                         if (CacheHelper.getData(key: "user_role") ==
                             "Cleaner") {
-                          Navigator.of(context).pushNamed(
+                          Navigator.of(context).pushReplacementNamed(
                             ContinueRegisterationScreen
                                 .continueRegisterationRoute,
                           );
