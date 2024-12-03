@@ -23,6 +23,9 @@ class AuthProviderr with ChangeNotifier {
   XFile? profilePic;
   XFile? frontIdPic;
   XFile? backIdPic;
+
+  String? userRole;
+
   late TextEditingController emailController;
   late TextEditingController passwordController;
 
@@ -40,28 +43,34 @@ class AuthProviderr with ChangeNotifier {
 //login with firebase
   Future<void> loginWithFirebase() async {
     try {
-      // first check network connection
+      // Check network connection
       if (!await isConnected) {
         Fluttertoast.showToast(
-            backgroundColor: Colors.white,
-            textColor: Colors.black,
-            msg: "Please Check Your internet connection.");
+          backgroundColor: Colors.white,
+          textColor: Colors.black,
+          msg: "Please Check Your internet connection.",
+        );
         return;
       }
 
-      isLoading = true;
+      isLoading = true; // Start loading
+      await checkUserRole();
       await _auth.signInWithEmailAndPassword(
         email: emailController.text.trim(),
         password: passwordController.text.trim(),
       );
+
       _user = _auth.currentUser;
 
       // Check if the email is verified
       if (_user != null && !_user!.emailVerified) {
         Fluttertoast.showToast(
-            msg: "Please verify your email before logging in.");
+          msg: "Please verify your email before logging in.",
+        );
         await _auth
             .signOut(); // Optional: Sign out the user if email is not verified
+        isLoading = false; // Stop loading
+        notifyListeners(); // Ensure UI updates
         return;
       }
 
@@ -69,23 +78,27 @@ class AuthProviderr with ChangeNotifier {
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         Fluttertoast.showToast(msg: "No user found for this email.");
-      }
-      if (e.code == 'wrong-password') {
+      } else if (e.code == 'wrong-password') {
         Fluttertoast.showToast(msg: "Wrong password provided for that user.");
-      }
-      if (e.code == 'invalid-email') {
+      } else if (e.code == 'invalid-email') {
         Fluttertoast.showToast(msg: "The email address is not valid.");
-      }
-      //check internet connection
-      if (e.code == 'network-request-failed') {
+      } else if (e.code == 'network-request-failed') {
         Fluttertoast.showToast(msg: "No internet connection.");
       }
+      isLoading = false; // Stop loading in case of FirebaseAuth exceptions
+      notifyListeners(); // Ensure UI updates
+      return;
     } catch (e) {
       Fluttertoast.showToast(msg: e.toString());
+      isLoading = false; // Stop loading in case of general exceptions
+      notifyListeners(); // Ensure UI updates
+      return;
     } finally {
-      isLoading = false;
+      if (isLoading) {
+        isLoading = false; // Stop loading if it wasn't reset earlier
+      }
+      notifyListeners(); // Ensure UI updates
     }
-    notifyListeners();
   }
 
   //register with firebase
@@ -123,6 +136,8 @@ class AuthProviderr with ChangeNotifier {
           'frontId': frontId,
           'backId': backId,
           'services': selectedServices,
+          'rating': 0.0,
+          'user_role': 'Cleaner',
         });
       } else {
         await FirebaseFirestore.instance
@@ -136,6 +151,7 @@ class AuthProviderr with ChangeNotifier {
           'profilePic': profileUrl,
           'frontId': frontId,
           'backId': backId,
+          'user_role': 'Client',
         });
       }
 
@@ -180,6 +196,41 @@ class AuthProviderr with ChangeNotifier {
     }
 
     notifyListeners();
+  }
+
+//check the user_role for from firebase
+
+  Future<String> checkUserRole() async {
+    try {
+      if (CacheHelper.getData(key: 'user_role') == "Cleaner") {
+        await FirebaseFirestore.instance
+            .collection('cleaners')
+            .doc(emailController.text)
+            .get()
+            .then((value) => userRole = value.get('user_role'));
+        notifyListeners();
+      } else {
+        await FirebaseFirestore.instance
+            .collection('clients')
+            .doc(emailController.text)
+            .get()
+            .then((value) => userRole = value.get('user_role'));
+        notifyListeners();
+      }
+    } on FirebaseException catch (e) {
+      if (e.code == 'network-request-failed') {
+        Fluttertoast.showToast(
+            backgroundColor: Colors.white,
+            textColor: Colors.black,
+            msg: "No internet connection.");
+      }
+    } catch (e) {
+      await Fluttertoast.showToast(
+          backgroundColor: Colors.white,
+          textColor: Colors.black,
+          msg: "No user found for this email.");
+    }
+    return userRole ?? "";
   }
 
 //verify email with firebase

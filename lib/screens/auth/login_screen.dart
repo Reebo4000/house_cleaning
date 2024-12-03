@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:house_cleaning/utils/app_styles.dart';
 import 'package:house_cleaning/utils/images_assets.dart';
@@ -184,35 +185,50 @@ class _LoginScreenState extends State<LoginScreen> {
                         onPressed: () async {
                           if (formKey.currentState!.validate()) {
                             formKey.currentState!.save();
-
                             timer.cancel();
 
-                            await authProvider.loginWithFirebase();
-                            if (FirebaseAuth.instance.currentUser != null &&
-                                FirebaseAuth
-                                        .instance.currentUser?.emailVerified ==
-                                    true &&
-                                CacheHelper.getData(key: "user_role") ==
-                                    'Cleaner') {
-                              if (context.mounted) {
-                                Navigator.pushReplacementNamed(
-                                  context,
-                                  CleanerProfilePage.cleanerProfilerouteName,
-                                );
+                            await authProvider.checkUserRole();
+                            if (authProvider.userRole == 'Cleaner') {
+                              await authProvider.loginWithFirebase();
+                              if (FirebaseAuth.instance.currentUser != null &&
+                                  FirebaseAuth.instance.currentUser
+                                          ?.emailVerified ==
+                                      true &&
+                                  CacheHelper.getData(key: "user_role") ==
+                                      'Cleaner' &&
+                                  authProvider.userRole == 'Cleaner') {
+                                if (context.mounted) {
+                                  Navigator.pushReplacementNamed(
+                                    context,
+                                    CleanerProfilePage.cleanerProfilerouteName,
+                                  );
+                                }
                               }
-                            } else if (FirebaseAuth.instance.currentUser !=
-                                    null &&
-                                FirebaseAuth
-                                        .instance.currentUser?.emailVerified ==
-                                    true) {
-                              if (context.mounted) {
-                                Navigator.pushReplacementNamed(
-                                  context,
-                                  BottomBarScreen.routeName,
-                                );
+                            } else if (authProvider.userRole == 'Client') {
+                              await authProvider.loginWithFirebase();
+                              if (FirebaseAuth.instance.currentUser != null &&
+                                  FirebaseAuth.instance.currentUser
+                                          ?.emailVerified ==
+                                      true &&
+                                  authProvider.userRole == 'Client') {
+                                if (context.mounted) {
+                                  Navigator.pushReplacementNamed(
+                                    context,
+                                    BottomBarScreen.routeName,
+                                  );
+                                }
                               }
+                            } else {
+                              await Fluttertoast.showToast(
+                                backgroundColor: Colors.white,
+                                textColor: Colors.black,
+                                msg: "No user found for this email.",
+                              );
                             }
                           }
+                          setState(() {
+                            authProvider.isLoading = false;
+                          });
                         },
                       ),
                       const SizedBox(height: 20),

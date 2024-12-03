@@ -105,7 +105,8 @@ class _HouseCleaningAppState extends State<HouseCleaningApp> {
                   const EmailVerificationScreen(),
             },
             //user cleaner or client // logged in or not
-            initialRoute: FirebaseAuth.instance.currentUser != null &&
+            initialRoute: 
+            FirebaseAuth.instance.currentUser != null &&
                     CacheHelper.getData(key: 'user_role') == 'Cleaner' &&
                     FirebaseAuth.instance.currentUser!.emailVerified
                 ? CleanerProfilePage.cleanerProfilerouteName

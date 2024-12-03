@@ -86,7 +86,8 @@ class _CleanerProfilePageState extends State<CleanerProfilePage> {
               leading: const Icon(Icons.help),
               title: const Text('Help'),
               onTap: () {
-                Navigator.pushNamed(context, HelpPage.helpPagerouteName);
+                Navigator.pushReplacementNamed(
+                    context, HelpPage.helpPagerouteName);
                 _scaffoldKey.currentState?.closeDrawer();
                 setState(() {});
               },
@@ -102,7 +103,7 @@ class _CleanerProfilePageState extends State<CleanerProfilePage> {
               leading: const Icon(Icons.settings),
               title: const Text('Settings'),
               onTap: () {
-                Navigator.pushNamed(
+                Navigator.pushReplacementNamed(
                     context, CleanerSettingsPage.cleanerSettingsRouteName);
                 _scaffoldKey.currentState?.closeDrawer();
                 setState(() {});
@@ -112,7 +113,7 @@ class _CleanerProfilePageState extends State<CleanerProfilePage> {
               leading: const Icon(Icons.logout),
               title: const Text('Sign Out'),
               onTap: () {
-                Navigator.pushNamed(
+                Navigator.pushReplacementNamed(
                     context, CleanerSignOut.cleanerSignOutRouteName);
                 _scaffoldKey.currentState?.closeDrawer();
                 setState(() {});
