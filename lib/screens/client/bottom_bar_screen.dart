@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
+import 'package:house_cleaning/screens/client/home/Gategories/Booking/Booking_Screen.dart';
+import 'package:house_cleaning/screens/client/home/Gategories/profile/Profile_Screen.dart';
+import 'package:house_cleaning/screens/client/home/home_screen.dart';
 import 'package:house_cleaning/utils/color_manager.dart';
-import 'package:house_cleaning/screens/client/bottom_bar_screen/widgets/cart_screen_widget.dart';
-import 'package:house_cleaning/screens/client/bottom_bar_screen/widgets/home_screen_widget.dart';
-import 'package:house_cleaning/screens/client/bottom_bar_screen/widgets/menu_screen_widget.dart';
-import 'package:house_cleaning/screens/client/bottom_bar_screen/widgets/profile_screen_widet.dart';
+import 'package:house_cleaning/screens/client/home/Gategories/Account/account_screen.dart';
+
 
 class BottomBarScreen extends StatefulWidget {
   const BottomBarScreen({super.key});
@@ -17,9 +18,9 @@ class BottomBarScreen extends StatefulWidget {
 class _BottomBarScreenState extends State<BottomBarScreen> {
   List<Widget> pages = [
     const HomeScreenWidget(),
-    const CartScreenWidget(),
-    const ProfileScreenWidet(),
-    const MenuScreenWidget(),
+    const BookingScreen(),
+    const ProfileScreen(),
+     AccountScreen(),
   ];
   int currentPageIndex = 0;
   late PageController controller;
@@ -73,14 +74,14 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
               ),
               child: Icon(IconlyLight.bag2),
             ),
-            label: 'Cart',
+            label: 'Booking',
             selectedIcon: Badge(
               label: Text(
                 "3",
                 // "${cartProvider.getCartItems.length}",
                 style: TextStyle(fontSize: 15, color: Colors.yellow),
               ),
-              child: Icon(IconlyBold.bag2),
+              child: Icon(IconlyBold.chart),
             ),
           ),
           NavigationDestination(
@@ -90,7 +91,7 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
           ),
           NavigationDestination(
             icon: Icon(Icons.menu_sharp),
-            label: 'Menu',
+            label: 'Account',
             selectedIcon: Icon(Icons.menu_open_sharp),
           ),
         ],

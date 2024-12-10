@@ -7,7 +7,7 @@
 </queries>
 
     <application
-        android:label="house_cleaning"
+        android:label="Lam3an"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         

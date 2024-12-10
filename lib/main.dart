@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:house_cleaning/screens/client/bottom_bar_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -21,10 +22,8 @@ import 'package:house_cleaning/screens/cleaner_profile/drawer_items/help.dart';
 import 'package:house_cleaning/screens/auth/continue_registeration_screen.dart';
 import 'package:house_cleaning/screens/selection_screen/role_selection_page.dart';
 import 'package:house_cleaning/screens/cleaner_profile/drawer_items/settings.dart';
-import 'package:house_cleaning/screens/client/bottom_bar_screen/bottom_bar_screen.dart';
 import 'package:house_cleaning/screens/cleaner_profile/drawer_items/cleaner_sign_out.dart';
 import 'package:house_cleaning/screens/cleaner_profile/drawer_items/cleaner_profile_screen.dart';
-
 void main() async {
 //initialize supabase
   await Supabase.initialize(
@@ -103,6 +102,7 @@ class _HouseCleaningAppState extends State<HouseCleaningApp> {
               HelpPage.helpPagerouteName: (context) => const HelpPage(),
               EmailVerificationScreen.routeName: (context) =>
                   const EmailVerificationScreen(),
+              
             },
             //user cleaner or client // logged in or not
             initialRoute: FirebaseAuth.instance.currentUser != null &&

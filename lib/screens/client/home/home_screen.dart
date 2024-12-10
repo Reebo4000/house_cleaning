@@ -7,11 +7,11 @@ import 'package:house_cleaning/utils/images_assets.dart';
 import 'package:house_cleaning/provider/auth_provider.dart';
 import 'package:house_cleaning/provider/theme_provider.dart';
 import 'package:house_cleaning/screens/selection_screen/role_selection_page.dart';
-import 'package:house_cleaning/screens/client/bottom_bar_screen/widgets/swiper_home_page.dart';
-import 'package:house_cleaning/screens/client/bottom_bar_screen/widgets/search_text_field.dart';
-import 'package:house_cleaning/screens/client/bottom_bar_screen/widgets/booking_summary_card.dart';
-import 'package:house_cleaning/screens/client/bottom_bar_screen/widgets/reviews_list_view_widget.dart';
-import 'package:house_cleaning/screens/client/bottom_bar_screen/widgets/services_categories_grid_view.dart';
+import 'package:house_cleaning/screens/client/home/widgets/swiper_home_page.dart';
+import 'package:house_cleaning/screens/client/home/widgets/search_text_field.dart';
+import 'package:house_cleaning/screens/client/home/widgets/booking_summary_card.dart';
+import 'package:house_cleaning/screens/client/home/widgets/reviews_list_view_widget.dart';
+import 'package:house_cleaning/screens/client/home/widgets/services_categories_grid_view.dart';
 
 class HomeScreenWidget extends StatelessWidget {
   const HomeScreenWidget({super.key});

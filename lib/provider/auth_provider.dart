@@ -7,7 +7,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:house_cleaning/utils/shared_preferences.dart';
-import 'package:house_cleaning/screens/auth/login_screen.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:supabase_flutter/supabase_flutter.dart' hide User;
 import 'package:house_cleaning/screens/auth/email_verification_screen.dart';

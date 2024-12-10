@@ -4,7 +4,6 @@ import 'package:house_cleaning/screens/onboarding/widgets/custom_button.dart';
 import 'package:house_cleaning/screens/onboarding/widgets/indicator_widget.dart';
 import 'package:house_cleaning/screens/selection_screen/role_selection_page.dart';
 import 'package:house_cleaning/screens/onboarding/widgets/onboarding_page_widget.dart';
-import 'package:house_cleaning/screens/client/bottom_bar_screen/bottom_bar_screen.dart';
 
 class OnboardingScreen extends StatefulWidget {
   static const String onBoardingRoute = '/onboarding';

@@ -47,7 +47,7 @@ class _SplashScreenState extends State<SplashScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: ColorManager.lightScaffoldColor, // Use the light scaffold color
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -63,13 +63,15 @@ class _SplashScreenState extends State<SplashScreen>
               child: Image.asset(Assets.imagesLogoSplash),
             ),
             const SizedBox(height: 20),
-            const Text(
-              'Book Your Cleaning Service Today',
-              style: TextStyle(
-                fontSize: 24.0,
-                fontWeight: FontWeight.bold,
-                color: ColorManager
-                    .primaryColor, // Replace with your primary color
+            Transform.rotate(
+              angle: 0.2, // Adjust this value to control the curvature
+              child: const Text(
+                'Baytak aman w malyan lam3an ma3 Lam3an',
+                style: TextStyle(
+                  fontSize: 24.0,
+                  fontWeight: FontWeight.bold,
+                  color: ColorManager.primaryColor, // Primary color
+                ),
               ),
             ),
           ],

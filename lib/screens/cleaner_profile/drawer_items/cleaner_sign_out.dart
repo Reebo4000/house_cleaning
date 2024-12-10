@@ -4,12 +4,10 @@ import 'package:house_cleaning/utils/app_styles.dart';
 import 'package:house_cleaning/utils/images_assets.dart';
 import 'package:house_cleaning/utils/color_manager.dart';
 import 'package:house_cleaning/provider/auth_provider.dart';
-import 'package:house_cleaning/screens/auth/login_screen.dart';
 import 'package:house_cleaning/screens/cleaner_profile/drawer_items/help.dart';
 import 'package:house_cleaning/screens/selection_screen/role_selection_page.dart';
 import 'package:house_cleaning/screens/cleaner_profile/drawer_items/settings.dart';
-import 'package:house_cleaning/screens/cleaner_profile/drawer_items/cleaner_sign_out.dart';
-import 'package:house_cleaning/screens/cleaner_profile/drawer_items/cleaner_sign_out.dart';
+
 
 class CleanerSignOut extends StatefulWidget {
   const CleanerSignOut({super.key});

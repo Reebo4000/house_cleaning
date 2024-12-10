@@ -174,6 +174,7 @@ abstract class AppStyles {
     );
   }
 
+
   // static TextStyle styleRegular16 = TextStyle(
   //   color: const Color(0xFF064060),
   //   fontSize: ResponsiveFontSize.getResponsiveFontSize(fontSize: 16),
