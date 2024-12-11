@@ -6,7 +6,6 @@ import 'package:house_cleaning/screens/client/home/home_screen.dart';
 import 'package:house_cleaning/utils/color_manager.dart';
 import 'package:house_cleaning/screens/client/home/Gategories/Account/account_screen.dart';
 
-
 class BottomBarScreen extends StatefulWidget {
   const BottomBarScreen({super.key});
   static const String routeName = '/bottom-bar-screen';
@@ -20,14 +19,15 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
     const HomeScreenWidget(),
     const BookingScreen(),
     const ProfileScreen(),
-     AccountScreen(),
+    AccountScreen(),
   ];
   int currentPageIndex = 0;
   late PageController controller;
+
   @override
   void initState() {
-    super.initState();
     controller = PageController(initialPage: currentPageIndex);
+    super.initState();
   }
 
   @override

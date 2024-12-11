@@ -9,7 +9,6 @@ import 'package:house_cleaning/utils/color_manager.dart';
 import 'package:intl/intl.dart';
 import '../../../../../../utils/font.dart';
 
-
 class BookingsList extends StatefulWidget {
   final String documentId;
 
@@ -20,214 +19,155 @@ class BookingsList extends StatefulWidget {
 }
 
 class _BookingsListState extends State<BookingsList> {
-  final FirebaseAuth auth = FirebaseAuth.instance;
-  CollectionReference booking =
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final CollectionReference _bookingCollection =
       FirebaseFirestore.instance.collection('booking_list');
-
-  bool hasDocData = false;
-  checkDocData() async {
-    DocumentSnapshot ds = await FirebaseFirestore.instance
-        .collection("booking_list")
-        .doc(auth.currentUser!.uid)
-        .get();
-    setState(() {
-      hasDocData = ds.exists;
-    });
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    checkDocData();
-  }
 
   @override
   Widget build(BuildContext context) {
-    if (hasDocData) {
-      return FutureBuilder<Object>(
-          future: booking.doc(auth.currentUser!.uid.toString()).get(),
-          builder: (context, AsyncSnapshot snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return CircularProgressIndicator();
-            }
+    return FutureBuilder<DocumentSnapshot>(
+      future: _bookingCollection.doc(_auth.currentUser!.uid).get(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Center(child: CircularProgressIndicator());
+        }
 
-            if (snapshot.hasData) {
-              final Timestamp time = snapshot.data!['booking_time'];
-              final DateTime dateTime = time.toDate();
-              final dateSet =
-                  DateFormat("yyyy-MM-dd' | 'HH:mm").format(dateTime);
+        if (snapshot.hasError) {
+          return const Center(child: Text("An error occurred."));
+        }
 
-              return Scaffold(
-                backgroundColor: bgBlueWhite,
-                body: ListView(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(20.0),
-                      child: Container(
-                          constraints: BoxConstraints(
-                            maxHeight: double.infinity,
-                          ),
-                          color: white,
-                          child: Padding(
-                            padding: const EdgeInsets.all(20.0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text.rich(
-                                  TextSpan(
-                                    children: [
-                                      TextSpan(
-                                          text: 'CLEANING',
-                                          style: TextStyle(
-                                            fontFamily: TextCustom.subBold,
-                                            fontSize: 16.sp,
-                                          )),
-                                    ],
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 2.h,
-                                ),
-                                Text.rich(
-                                  TextSpan(
-                                    children: [
-                                      WidgetSpan(
-                                          child:
-                                              Icon(Icons.date_range_outlined)),
-                                      TextSpan(
-                                          text: ' ${dateSet}',
-                                          style: TextStyle(
-                                            fontFamily: TextCustom.desRegular,
-                                          )),
-                                    ],
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 1.h,
-                                ),
-                                Text.rich(
-                                  TextSpan(
-                                    children: [
-                                      WidgetSpan(
-                                          child:
-                                              Icon(Icons.apartment_outlined)),
-                                      TextSpan(
-                                          text:
-                                              ' ${snapshot.data!['place_type']}',
-                                          style: TextStyle(
-                                            fontFamily: TextCustom.desRegular,
-                                          )),
-                                    ],
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 1.h,
-                                ),
-                                Text.rich(
-                                  TextSpan(
-                                    children: [
-                                      WidgetSpan(
-                                          child: Icon(Icons.timer_outlined)),
-                                      TextSpan(
-                                          text:
-                                              ' ${snapshot.data!['duration_selected']}',
-                                          style: TextStyle(
-                                            fontFamily: TextCustom.desRegular,
-                                          )),
-                                    ],
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 1.h,
-                                ),
-                                Text.rich(
-                                  TextSpan(
-                                    children: [
-                                      WidgetSpan(
-                                          child: Icon(
-                                              Icons.price_change_outlined)),
-                                      TextSpan(
-                                          text:
-                                              ' ${snapshot.data!['total_price']}',
-                                          style: TextStyle(
-                                            fontFamily: TextCustom.desRegular,
-                                          )),
-                                    ],
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 1.h,
-                                ),
-                                Text.rich(
-                                  TextSpan(
-                                    children: [
-                                      WidgetSpan(
-                                          child: Icon(Icons.home_outlined)),
-                                      TextSpan(
-                                          text:
-                                              ' ${snapshot.data!['Address']} ',
-                                          style: TextStyle(
-                                            fontFamily: TextCustom.desRegular,
-                                          )),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          )),
+        if (snapshot.hasData && snapshot.data != null) {
+          final data = snapshot.data!.data() as Map<String, dynamic>?;
+
+          if (data != null && data.isNotEmpty) {
+            final Timestamp time = data['booking_time'];
+            final DateTime dateTime = time.toDate();
+            final String formattedDate =
+                DateFormat("yyyy-MM-dd | HH:mm").format(dateTime);
+
+            return Scaffold(
+              backgroundColor: bgBlueWhite,
+              body: ListView(
+                padding: const EdgeInsets.all(20.0),
+                children: [
+                  Container(
+                    color: white,
+                    padding: const EdgeInsets.all(20.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        _buildRichText('CLEANING', TextCustom.subBold, 16.sp),
+                        SizedBox(height: 2.h),
+                        _buildRichTextWithIcon(
+                          Icons.date_range_outlined,
+                          formattedDate,
+                        ),
+                        SizedBox(height: 1.h),
+                        _buildRichTextWithIcon(
+                          Icons.apartment_outlined,
+                          data['place_type'] ?? 'N/A',
+                        ),
+                        SizedBox(height: 1.h),
+                        _buildRichTextWithIcon(
+                          Icons.timer_outlined,
+                          data['duration_selected'] ?? 'N/A',
+                        ),
+                        SizedBox(height: 1.h),
+                        _buildRichTextWithIcon(
+                          Icons.price_change_outlined,
+                          data['total_price'] ?? 'N/A',
+                        ),
+                        SizedBox(height: 1.h),
+                        _buildRichTextWithIcon(
+                          Icons.home_outlined,
+                          data['Address'] ?? 'N/A',
+                        ),
+                      ],
                     ),
-                  ],
+                  ),
+                ],
+              ),
+            );
+          }
+        }
+
+        return _buildNoBookingWidget();
+      },
+    );
+  }
+
+  Widget _buildRichText(String text, String fontFamily, double fontSize) {
+    return Text(
+      text,
+      style: TextStyle(
+        fontFamily: fontFamily,
+        fontSize: fontSize,
+      ),
+    );
+  }
+
+  Widget _buildRichTextWithIcon(IconData icon, String text) {
+    return Text.rich(
+      TextSpan(
+        children: [
+          WidgetSpan(child: Icon(icon)),
+          TextSpan(
+            text: ' $text',
+            style: TextStyle(fontFamily: TextCustom.desRegular),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildNoBookingWidget() {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(
+            Icons.calendar_month_outlined,
+            color: greyPrimary,
+            size: 30.w,
+          ),
+          SizedBox(height: 2.h),
+          Text(
+            "No Booking, yet",
+            style: TextStyle(
+              fontFamily: TextCustom.desRegular,
+              fontSize: 16.sp,
+            ),
+          ),
+          SizedBox(height: 2.h),
+          SizedBox(
+            width: 45.w,
+            height: 6.h,
+            child: ElevatedButton(
+              style: ButtonStyle(
+                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(40),
+                  ),
                 ),
-              );
-            }
-            return CircularProgressIndicator();
-          });
-    } else {
-      return Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(
-              Icons.calendar_month_outlined,
-              color: greyPrimary,
-              size: 30.w,
+                backgroundColor: MaterialStateProperty.all<Color>(primary),
+              ),
+              onPressed: () {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => BookingScreen()),
+                );
+              },
+              child: Text(
+                'Book a service',
+                style: TextStyle(
+                  fontFamily: TextCustom.desRegular,
+                  fontSize: 14.sp,
+                ),
+              ),
             ),
-            SizedBox(
-              height: 2.h,
-            ),
-            Text(
-              "No Booking, yet",
-              style:
-                  TextStyle(fontFamily: TextCustom.desRegular, fontSize: 16.sp),
-            ),
-            SizedBox(
-              height: 2.h,
-            ),
-            SizedBox(
-                width: 45.w,
-                height: 6.h,
-                child: ElevatedButton(
-                    style: ButtonStyle(
-                        shape:
-                            MaterialStateProperty.all<RoundedRectangleBorder>(
-                                RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(40))),
-                        backgroundColor:
-                            MaterialStateProperty.all<Color>(primary)),
-                    onPressed: () async {
-                      Navigator.pushReplacement(context,
-                          MaterialPageRoute(builder: (context) {
-                        return BookingScreen();
-                      }));
-                    },
-                    child: Text(
-                      'Book a service',
-                      style: TextStyle(
-                          fontFamily: TextCustom.desRegular, fontSize: 14.sp),
-                    ))),
-          ],
-        ),
-      );
-    }
+          ),
+        ],
+      ),
+    );
   }
 }

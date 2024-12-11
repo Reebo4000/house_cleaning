@@ -24,6 +24,7 @@ import 'package:house_cleaning/screens/selection_screen/role_selection_page.dart
 import 'package:house_cleaning/screens/cleaner_profile/drawer_items/settings.dart';
 import 'package:house_cleaning/screens/cleaner_profile/drawer_items/cleaner_sign_out.dart';
 import 'package:house_cleaning/screens/cleaner_profile/drawer_items/cleaner_profile_screen.dart';
+
 void main() async {
 //initialize supabase
   await Supabase.initialize(
@@ -101,8 +102,7 @@ class _HouseCleaningAppState extends State<HouseCleaningApp> {
                   const CleanerSignOut(),
               HelpPage.helpPagerouteName: (context) => const HelpPage(),
               EmailVerificationScreen.routeName: (context) =>
-                  const EmailVerificationScreen(),
-              
+                  const EmailVerificationScreen(),              
             },
             //user cleaner or client // logged in or not
             initialRoute: FirebaseAuth.instance.currentUser != null &&

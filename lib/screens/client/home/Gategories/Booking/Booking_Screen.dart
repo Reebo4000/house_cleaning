@@ -1,19 +1,18 @@
 // ignore_for_file: prefer_const_constructors, non_constant_identifier_names, unnecessary_string_interpolations, deprecated_member_use, implicit_call_tearoffs, use_super_parameters, file_names, prefer_typing_uninitialized_variables, void_checks, avoid_print
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:house_cleaning/screens/client/bottom_bar_screen.dart';
+import 'package:house_cleaning/screens/client/home/Gategories/Booking/widgets/Booking_Const.dart';
 import 'package:house_cleaning/screens/client/home/Gategories/Booking/widgets/MapLocationPage.dart';
+import 'package:house_cleaning/screens/client/home/Gategories/Booking/widgets/booking_helpers.dart';
 import 'package:house_cleaning/utils/Field.dart';
 import 'package:house_cleaning/utils/color_manager.dart';
 import 'package:house_cleaning/utils/font.dart';
 
-
 class BookingScreen extends StatefulWidget {
   const BookingScreen({Key? key}) : super(key: key);
-
+  
   @override
   State<BookingScreen> createState() => _LocaBookingState();
 }
@@ -21,106 +20,18 @@ class BookingScreen extends StatefulWidget {
 class _LocaBookingState extends State<BookingScreen> {
   final formKey = GlobalKey<FormState>();
 
-  final List<String> place_type = [
-    'Condo 1-2 BR (40-80 sq.m.)',
-    'Condo 3 BR (100 sq.m.)',
-    'House 1-3 Stories (100-200 sq.m.)',
-    'House (> 200 sq.m.)'
-  ];
-
-  final List<String> province = [
-    'Bangkok',
-    'Chonburi',
-    'Pathum Thani',
-    'Chiang Mai',
-  ];
-
-  final List<String> duration = [
-    '2 hr.',
-    '3 hr.',
-    '4 hr.',
-    '5 hr.',
-    '6 hr.',
-    '8 hr.',
-  ];
 
   // form value
-  String place_type_selected = '';
-  String address = '';
-  String province_selected = '';
-  String district = '';
-  String addressDetail = '';
-  String phonenumber = '';
-  String duration_selected = '';
-  String additional = '';
+  String? place_type_selected = '';
+  String? address = '';
+  String? province_selected = '';
+  String? district = '';
+  String? addressDetail = '';
+  String? phonenumber = '';
+  String? duration_selected = '';
+  String? additional = '';
   // end form value
-
   DateTime dateTime = DateTime.now();
-  void storeBooking(
-      String place_type_selected,
-      String duration_selected,
-      String province_selected,
-      String addressDetail,
-      String phonenumber,
-      DateTime dateTime,
-      String additional,
-      int total) async {
-    await FirebaseFirestore.instance
-        .collection('booking_list')
-        .doc(FirebaseAuth.instance.currentUser!.uid)
-        .update({
-      'place_type': place_type_selected,
-      'duration_selected': duration_selected,
-      'province': province_selected,
-      'address_detail': addressDetail,
-      'phone_number': phonenumber,
-      'booking_time': dateTime,
-      'additional': additional,
-      'total_price': total
-    });
-  }
-
-  var total;
-  void priceCalculate(
-      place_type_selected, province_selected, duration_selected) {
-    var placeTypePrice;
-    var provincePrice;
-    var hourPrice;
-
-    if (place_type_selected == 'Condo 1-2 BR (40-80 sq.m.)') {
-      placeTypePrice = 150;
-    } else if (place_type_selected == 'Condo 3 BR (100 sq.m.)') {
-      placeTypePrice = 225;
-    } else if (place_type_selected == 'House 1-3 Stories (100-200 sq.m.)') {
-      placeTypePrice = 300;
-    } else if (place_type_selected == 'House (> 200 sq.m.)') {
-      placeTypePrice = 350;
-    }
-    // 500
-    if (province_selected == 'Bangkok' || province_selected == 'Chonburi') {
-      provincePrice = 120;
-    } else if (province_selected == 'Pathum Thani') {
-      provincePrice = 100;
-    } else if (province_selected == 'Chiang Mai') {
-      provincePrice = 80;
-    }
-
-    if (duration_selected == '2 hr.') {
-      hourPrice = 150;
-    } else if (duration_selected == '3 hr.') {
-      hourPrice = 300;
-    } else if (duration_selected == '4 hr.') {
-      hourPrice = 450;
-    } else if (duration_selected == '5 hr.') {
-      hourPrice = 600;
-    } else if (duration_selected == '6 hr.') {
-      hourPrice = 750;
-    } else if (duration_selected == '8 hr.') {
-      hourPrice = 900;
-    }
-    total = placeTypePrice + provincePrice + hourPrice;
-    return total;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -204,7 +115,7 @@ class _LocaBookingState extends State<BookingScreen> {
                         ? 'You should select your place type.'
                         : null,
                     decoration: InputDecorationCustom,
-                    items: place_type.map((choice) {
+                    items: placeTypeList.map((choice) {
                       return DropdownMenuItem(
                         value: choice,
                         child: Text('$choice'),
@@ -234,7 +145,7 @@ class _LocaBookingState extends State<BookingScreen> {
                         ? 'You should select your province.'
                         : null,
                     decoration: InputDecorationCustom,
-                    items: province.map((p) {
+                    items: provinceList.map((p) {
                       return DropdownMenuItem(
                         value: p,
                         child: Text('$p'),
@@ -332,7 +243,7 @@ class _LocaBookingState extends State<BookingScreen> {
                         ? 'You should select cleaning duration.'
                         : null,
                     decoration: InputDecorationCustom,
-                    items: duration.map((choice) {
+                    items: durationList.map((choice) {
                       return DropdownMenuItem(
                         value: choice,
                         child: Text('$choice'),
@@ -345,7 +256,6 @@ class _LocaBookingState extends State<BookingScreen> {
                     },
                   ),
                   SizedBox(height: 15.sp),
-
                   // end duration dropdown
 
                   // Date Time label
@@ -385,7 +295,6 @@ class _LocaBookingState extends State<BookingScreen> {
                                   '${dateTime.day}/${dateTime.month}/${dateTime.year}',
                                   style: TextStyle(color: greyPrimary)))),
                       // end Date form
-
                       Spacer(),
                       // Time form
                       SizedBox(
@@ -476,13 +385,13 @@ class _LocaBookingState extends State<BookingScreen> {
 
                             if (formKey.currentState!.validate()) {
                               storeBooking(
-                                  place_type_selected,
-                                  duration_selected,
-                                  province_selected,
-                                  addressDetail,
-                                  phonenumber,
+                                  place_type_selected!,
+                                  duration_selected!,
+                                  province_selected!,
+                                  addressDetail!,
+                                  phonenumber!,
                                   dateTime,
-                                  additional,
+                                  additional!,
                                   total);
                               formKey.currentState?.reset();
                               Navigator.pushReplacement(context,

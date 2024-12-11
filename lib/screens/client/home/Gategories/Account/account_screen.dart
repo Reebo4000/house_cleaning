@@ -31,7 +31,7 @@ class AccountScreen extends StatelessWidget {
           ListTile(
             leading: Icon(Icons.shopping_bag,
                 color: ColorManager.secondaryPrimaryColor),
-            title: Text('Your Orders'),
+            title: Text('Your Booking'),
             onTap: () {
               Navigator.push(
                 context,
