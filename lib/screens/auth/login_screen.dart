@@ -14,7 +14,7 @@ import 'package:house_cleaning/utils/loading_manager_widget.dart';
 import 'package:house_cleaning/screens/auth/register_screen.dart';
 import 'package:house_cleaning/screens/auth/widgets/custom_text_form_field.dart';
 import 'package:house_cleaning/screens/auth/widgets/custom_elevated_button.dart';
-import 'package:house_cleaning/screens/cleaner_profile/drawer_items/cleaner_profile_screen.dart';
+import 'package:house_cleaning/screens/cleaner/drawer_items/cleaner_profile_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});

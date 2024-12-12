@@ -2,7 +2,7 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:house_cleaning/screens/client/home/Gategories/Booking/widgets/Bookings_List.dart';
+import 'package:house_cleaning/screens/client/Booking/widgets/Bookings_List.dart';
 
 class ReadBookings extends StatefulWidget {
   const ReadBookings({Key? key}) : super(key: key);

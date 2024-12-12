@@ -1,5 +1,4 @@
 // ignore_for_file: avoid_print, unnecessary_null_comparison, prefer_const_constructors, curly_braces_in_flow_control_structures, await_only_futures, unnecessary_string_interpolations, unnecessary_brace_in_string_interps, use_super_parameters, file_names, use_build_context_synchronously
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -78,7 +77,7 @@ class _ProfilePageState extends State<ProfileScreen> {
                                   backgroundColor:
                                       WidgetStateProperty.all<Color>(logout)),
                               onPressed: () async {
-                                auth.signOut().then((value) => {
+                               auth.signOut().then((value) => {
                                       Navigator.pushReplacement(context,
                                           MaterialPageRoute(builder: (context) {
                                         return SplashScreen();

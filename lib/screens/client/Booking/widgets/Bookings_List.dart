@@ -4,10 +4,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:house_cleaning/screens/client/home/Gategories/Booking/booking_Screen.dart';
+import 'package:house_cleaning/screens/client/Booking/Booking_Screen.dart';
 import 'package:house_cleaning/utils/color_manager.dart';
 import 'package:intl/intl.dart';
-import '../../../../../../utils/font.dart';
+import '../../../../../utils/font.dart';
 
 class BookingsList extends StatefulWidget {
   final String documentId;

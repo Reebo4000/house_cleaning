@@ -18,12 +18,10 @@ import 'package:house_cleaning/screens/splash/splash_screen.dart';
 import 'package:supabase_flutter/supabase_flutter.dart' hide User;
 import 'package:house_cleaning/screens/onboarding/on_borading_screen.dart';
 import 'package:house_cleaning/screens/auth/email_verification_screen.dart';
-import 'package:house_cleaning/screens/cleaner_profile/drawer_items/help.dart';
 import 'package:house_cleaning/screens/auth/continue_registeration_screen.dart';
 import 'package:house_cleaning/screens/selection_screen/role_selection_page.dart';
-import 'package:house_cleaning/screens/cleaner_profile/drawer_items/settings.dart';
-import 'package:house_cleaning/screens/cleaner_profile/drawer_items/cleaner_sign_out.dart';
-import 'package:house_cleaning/screens/cleaner_profile/drawer_items/cleaner_profile_screen.dart';
+import 'package:house_cleaning/screens/Client&Cleaner_Widgets/settings/widgets/sign_out.dart';
+import 'package:house_cleaning/screens/cleaner/drawer_items/cleaner_profile_screen.dart';
 
 void main() async {
 //initialize supabase
@@ -96,11 +94,8 @@ class _HouseCleaningAppState extends State<HouseCleaningApp> {
                   (context) => const ContinueRegisterationScreen(),
               CleanerProfilePage.cleanerProfilerouteName: (context) =>
                   const CleanerProfilePage(),
-              CleanerSettingsPage.cleanerSettingsRouteName: (context) =>
-                  const CleanerSettingsPage(),
-              CleanerSignOut.cleanerSignOutRouteName: (context) =>
-                  const CleanerSignOut(),
-              HelpPage.helpPagerouteName: (context) => const HelpPage(),
+              SignOut.cleanerSignOutRouteName: (context) =>
+                  const SignOut(),
               EmailVerificationScreen.routeName: (context) =>
                   const EmailVerificationScreen(),              
             },

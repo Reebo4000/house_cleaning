@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:house_cleaning/screens/Client&Cleaner_Widgets/About_Screen.dart';
+import 'package:house_cleaning/screens/Client&Cleaner_Widgets/GetHelp_Screen.dart';
+import 'package:house_cleaning/screens/Client&Cleaner_Widgets/settings/setting.dart';
+import 'package:house_cleaning/screens/Client&Cleaner_Widgets/settings/widgets/Payment.dart';
+import 'package:house_cleaning/screens/client/Booking/widgets/Read_booking.dart';
 import 'package:house_cleaning/utils/app_styles.dart';
 import 'package:house_cleaning/utils/color_manager.dart';
 import 'package:house_cleaning/utils/images_assets.dart';
-import 'package:house_cleaning/screens/cleaner_profile/drawer_items/help.dart';
-import 'package:house_cleaning/screens/cleaner_profile/drawer_items/settings.dart';
-import 'package:house_cleaning/screens/cleaner_profile/drawer_items/cleaner_sign_out.dart';
+import 'package:house_cleaning/screens/Client&Cleaner_Widgets/settings/widgets/sign_out.dart';
 
 class CleanerProfilePage extends StatefulWidget {
   static const cleanerProfilerouteName = '/cleaner_profile';
@@ -65,7 +68,12 @@ class _CleanerProfilePageState extends State<CleanerProfilePage> {
               leading: const Icon(Icons.book),
               title: const Text('Reservations'),
               onTap: () {
-                // Navigate to reservations
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => const ReadBookings()),
+                );
+                _scaffoldKey.currentState?.closeDrawer();
+                setState(() {});
               },
             ),
             ListTile(
@@ -79,15 +87,22 @@ class _CleanerProfilePageState extends State<CleanerProfilePage> {
               leading: const Icon(Icons.payment),
               title: const Text('Your Payment'),
               onTap: () {
-                // Navigate to payment
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => const PaymentPage()),
+                );
+                _scaffoldKey.currentState?.closeDrawer();
+                setState(() {});
               },
             ),
             ListTile(
               leading: const Icon(Icons.help),
               title: const Text('Help'),
               onTap: () {
-                Navigator.pushReplacementNamed(
-                    context, HelpPage.helpPagerouteName);
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => HelpPage()),
+                );
                 _scaffoldKey.currentState?.closeDrawer();
                 setState(() {});
               },
@@ -96,15 +111,22 @@ class _CleanerProfilePageState extends State<CleanerProfilePage> {
               leading: const Icon(Icons.info),
               title: const Text('About'),
               onTap: () {
-                // Navigate to about
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => AboutPage()),
+                );
+                _scaffoldKey.currentState?.closeDrawer();
+                setState(() {});
               },
             ),
             ListTile(
               leading: const Icon(Icons.settings),
               title: const Text('Settings'),
               onTap: () {
-                Navigator.pushReplacementNamed(
-                    context, CleanerSettingsPage.cleanerSettingsRouteName);
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => SettingsPage()),
+                );
                 _scaffoldKey.currentState?.closeDrawer();
                 setState(() {});
               },
@@ -114,7 +136,7 @@ class _CleanerProfilePageState extends State<CleanerProfilePage> {
               title: const Text('Sign Out'),
               onTap: () {
                 Navigator.pushReplacementNamed(
-                    context, CleanerSignOut.cleanerSignOutRouteName);
+                    context, SignOut.cleanerSignOutRouteName);
                 _scaffoldKey.currentState?.closeDrawer();
                 setState(() {});
               },
@@ -123,9 +145,11 @@ class _CleanerProfilePageState extends State<CleanerProfilePage> {
         ),
       ),
       body: const Center(
-        child: Text(
-          'Cleaner Profile Page',
-          style: TextStyle(fontSize: 20),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text('Cleaner Profile'),
+          ],
         ),
       ),
     );

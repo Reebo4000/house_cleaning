@@ -1,12 +1,12 @@
 // ignore_for_file: use_key_in_widget_constructors, prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:house_cleaning/screens/client/home/Gategories/Account/widgets/settings/widgets/AccountInfoPage.dart';
-import 'package:house_cleaning/screens/client/home/Gategories/Account/widgets/settings/widgets/Change%20Email%20Page.dart';
-import 'package:house_cleaning/screens/client/home/Gategories/Account/widgets/settings/widgets/Change%20Password%20Page.dart';
-import 'package:house_cleaning/screens/client/home/Gategories/Account/widgets/settings/widgets/Notifications%20Page.dart';
-import 'package:house_cleaning/screens/client/home/Gategories/Account/widgets/settings/widgets/Save_Addresses_Page.dart';
-import 'package:house_cleaning/screens/client/home/Gategories/Account/widgets/settings/widgets/logout.dart';
+import 'package:house_cleaning/screens/Client&Cleaner_Widgets/settings/widgets/AccountInfoPage.dart';
+import 'package:house_cleaning/screens/Client&Cleaner_Widgets/settings/widgets/Change%20Email%20Page.dart';
+import 'package:house_cleaning/screens/Client&Cleaner_Widgets/settings/widgets/Change%20Password%20Page.dart';
+import 'package:house_cleaning/screens/Client&Cleaner_Widgets/settings/widgets/Notifications%20Page.dart';
+import 'package:house_cleaning/screens/Client&Cleaner_Widgets/settings/widgets/Save_Addresses_Page.dart';
+import 'package:house_cleaning/screens/Client&Cleaner_Widgets/settings/widgets/sign_out.dart';
 import 'package:house_cleaning/utils/color_manager.dart';
 
 class SettingsPage extends StatelessWidget {
@@ -77,7 +77,7 @@ class SettingsPage extends StatelessWidget {
           ListTile(
             leading:
                 Icon(Icons.language, color: ColorManager.secondaryPrimaryColor),
-            title: Text('Language'),
+            title: Text('Change Language'),
             onTap: () {
               _showLanguageDialog(context);
             },
@@ -96,7 +96,7 @@ class SettingsPage extends StatelessWidget {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => LogOutPage()),
+                MaterialPageRoute(builder: (context) => SignOut()),
               );
             },
           ),

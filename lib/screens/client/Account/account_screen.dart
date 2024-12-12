@@ -1,10 +1,10 @@
 // ignore_for_file: use_key_in_widget_constructors, prefer_const_constructors
 import 'package:flutter/material.dart';
-import 'package:house_cleaning/screens/client/home/Gategories/Account/widgets/About_Screen.dart';
-import 'package:house_cleaning/screens/client/home/Gategories/Account/widgets/GetHelp_Screen.dart';
-import 'package:house_cleaning/screens/client/home/Gategories/Account/widgets/settings/setting.dart';
-import 'package:house_cleaning/screens/client/home/Gategories/Booking/Booking_Screen.dart';
-import 'package:house_cleaning/screens/client/home/Gategories/profile/Profile_Screen.dart';
+import 'package:house_cleaning/screens/Client&Cleaner_Widgets/About_Screen.dart';
+import 'package:house_cleaning/screens/Client&Cleaner_Widgets/GetHelp_Screen.dart';
+import 'package:house_cleaning/screens/Client&Cleaner_Widgets/settings/setting.dart';
+import 'package:house_cleaning/screens/client/Booking/Booking_Screen.dart';
+import 'package:house_cleaning/screens/client/profile/Profile_Screen.dart';
 import 'package:house_cleaning/utils/color_manager.dart';
 
 class AccountScreen extends StatelessWidget {
@@ -68,7 +68,7 @@ class AccountScreen extends StatelessWidget {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => AboutAppPage()),
+                MaterialPageRoute(builder: (context) => AboutPage()),
               );
             },
           ),

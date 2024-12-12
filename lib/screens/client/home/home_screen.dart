@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:house_cleaning/screens/client/home/Gategories/Booking/Booking_Screen.dart';
+import 'package:house_cleaning/screens/client/Booking/Booking_Screen.dart';
 import 'package:provider/provider.dart';
 import 'package:house_cleaning/utils/app_styles.dart';
 import 'package:house_cleaning/utils/color_manager.dart';

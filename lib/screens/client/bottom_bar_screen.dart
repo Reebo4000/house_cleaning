@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
-import 'package:house_cleaning/screens/client/home/Gategories/Booking/Booking_Screen.dart';
-import 'package:house_cleaning/screens/client/home/Gategories/profile/Profile_Screen.dart';
+import 'package:house_cleaning/screens/client/Account/account_screen.dart';
+import 'package:house_cleaning/screens/client/Booking/Booking_Screen.dart';
 import 'package:house_cleaning/screens/client/home/home_screen.dart';
+import 'package:house_cleaning/screens/client/profile/Profile_Screen.dart';
 import 'package:house_cleaning/utils/color_manager.dart';
-import 'package:house_cleaning/screens/client/home/Gategories/Account/account_screen.dart';
+
 
 class BottomBarScreen extends StatefulWidget {
   const BottomBarScreen({super.key});
