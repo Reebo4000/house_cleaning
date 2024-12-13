@@ -3,7 +3,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:house_cleaning/screens/client/Booking/Booking_Screen.dart';
 import 'package:house_cleaning/utils/color_manager.dart';
 import 'package:intl/intl.dart';
@@ -56,28 +55,28 @@ class _BookingsListState extends State<BookingsList> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        _buildRichText('CLEANING', TextCustom.subBold, 16.sp),
-                        SizedBox(height: 2.h),
+                        _buildRichText('CLEANING', TextCustom.subBold, 16),
+                        SizedBox(height: 10),
                         _buildRichTextWithIcon(
                           Icons.date_range_outlined,
                           formattedDate,
                         ),
-                        SizedBox(height: 1.h),
+                        SizedBox(height: 10),
                         _buildRichTextWithIcon(
                           Icons.apartment_outlined,
                           data['place_type'] ?? 'N/A',
                         ),
-                        SizedBox(height: 1.h),
+                        SizedBox(height: 10),
                         _buildRichTextWithIcon(
                           Icons.timer_outlined,
                           data['duration_selected'] ?? 'N/A',
                         ),
-                        SizedBox(height: 1.h),
+                        SizedBox(height: 10),
                         _buildRichTextWithIcon(
                           Icons.price_change_outlined,
                           data['total_price'] ?? 'N/A',
                         ),
-                        SizedBox(height: 1.h),
+                        SizedBox(height: 10),
                         _buildRichTextWithIcon(
                           Icons.home_outlined,
                           data['Address'] ?? 'N/A',
@@ -128,20 +127,20 @@ class _BookingsListState extends State<BookingsList> {
           Icon(
             Icons.calendar_month_outlined,
             color: greyPrimary,
-            size: 30.w,
+            size: 30,
           ),
-          SizedBox(height: 2.h),
+          SizedBox(height: 10),
           Text(
             "No Booking, yet",
             style: TextStyle(
               fontFamily: TextCustom.desRegular,
-              fontSize: 16.sp,
+              fontSize: 16,
             ),
           ),
-          SizedBox(height: 2.h),
+          SizedBox(height: 10),
           SizedBox(
-            width: 45.w,
-            height: 6.h,
+            width: 45,
+            height: 25,
             child: ElevatedButton(
               style: ButtonStyle(
                 shape: MaterialStateProperty.all<RoundedRectangleBorder>(
@@ -161,7 +160,7 @@ class _BookingsListState extends State<BookingsList> {
                 'Book a service',
                 style: TextStyle(
                   fontFamily: TextCustom.desRegular,
-                  fontSize: 14.sp,
+                  fontSize: 14,
                 ),
               ),
             ),

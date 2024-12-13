@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:house_cleaning/screens/Client&Cleaner_Widgets/About_Screen.dart';
 import 'package:house_cleaning/screens/Client&Cleaner_Widgets/GetHelp_Screen.dart';
 import 'package:house_cleaning/screens/Client&Cleaner_Widgets/settings/setting.dart';
+import 'package:house_cleaning/screens/client/Account/widget/ClientPayment.dart';
 import 'package:house_cleaning/screens/client/Booking/Booking_Screen.dart';
 import 'package:house_cleaning/screens/client/profile/Profile_Screen.dart';
 import 'package:house_cleaning/utils/color_manager.dart';
@@ -40,13 +41,24 @@ class AccountScreen extends StatelessWidget {
             },
           ),
           ListTile(
+            leading: const Icon(Icons.payment,
+                color: ColorManager.secondaryPrimaryColor),
+            title: const Text('Your Payment'),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const Clientpayment()),
+              );
+            },
+          ),
+          ListTile(
             leading:
                 Icon(Icons.person, color: ColorManager.secondaryPrimaryColor),
             title: Text('Profile'),
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => ProfileScreen()),
+                MaterialPageRoute(builder: (context) => ProfilePage()),
               );
             },
           ),

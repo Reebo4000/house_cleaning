@@ -21,7 +21,7 @@ import 'package:house_cleaning/screens/auth/email_verification_screen.dart';
 import 'package:house_cleaning/screens/auth/continue_registeration_screen.dart';
 import 'package:house_cleaning/screens/selection_screen/role_selection_page.dart';
 import 'package:house_cleaning/screens/Client&Cleaner_Widgets/settings/widgets/sign_out.dart';
-import 'package:house_cleaning/screens/cleaner/drawer_items/cleaner_profile_screen.dart';
+import 'package:house_cleaning/screens/cleaner/Cleaner_profile_screen.dart';
 
 void main() async {
 //initialize supabase

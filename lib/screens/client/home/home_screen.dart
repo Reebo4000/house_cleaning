@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:house_cleaning/screens/client/Booking/Booking_Screen.dart';
 import 'package:provider/provider.dart';
 import 'package:house_cleaning/utils/app_styles.dart';
 import 'package:house_cleaning/utils/color_manager.dart';
@@ -10,6 +9,7 @@ import 'package:house_cleaning/provider/theme_provider.dart';
 import 'package:house_cleaning/screens/selection_screen/role_selection_page.dart';
 import 'package:house_cleaning/screens/client/home/widgets/swiper_home_page.dart';
 import 'package:house_cleaning/screens/client/home/widgets/search_text_field.dart';
+import 'package:house_cleaning/screens/client/home/widgets/booking_summary_card.dart';
 import 'package:house_cleaning/screens/client/home/widgets/reviews_list_view_widget.dart';
 import 'package:house_cleaning/screens/client/home/widgets/services_categories_grid_view.dart';
 
@@ -65,7 +65,7 @@ class HomeScreenWidget extends StatelessWidget {
               ),
               IconButton(
                 icon: const Icon(
-                  Icons.person,
+                  Icons.logout,
                   color: Colors.white,
                 ),
                 onPressed: () {
@@ -116,7 +116,7 @@ class HomeScreenWidget extends StatelessWidget {
               // ),
               // const SizedBox(height: 10.0),
               // const FeaturedServicesListView(),
-              const SizedBox(height: 20.0),
+              const SizedBox(height: 5.0),
 
               // Booking Summary Section add to profile also for cleaner
               const Text(
@@ -127,7 +127,7 @@ class HomeScreenWidget extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 10.0),
-              const BookingScreen(),
+              const BookingSummaryCardWidget(),
               const SizedBox(height: 20.0),
 
               // User Reviews/Testimonials

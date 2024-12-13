@@ -15,7 +15,7 @@ class ServicesCategoriesGridView extends StatelessWidget {
       physics: const NeverScrollableScrollPhysics(),
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
-        mainAxisSpacing: 15,
+        mainAxisSpacing: 20,
       ),
       itemCount: AppConstants.cleaningCategoryList.length,
       itemBuilder: (context, index) {
@@ -24,28 +24,33 @@ class ServicesCategoriesGridView extends StatelessWidget {
           child: Column(
             children: [
               ClipRRect(
+                borderRadius: BorderRadius.circular(10), 
                 child: Image.asset(
                   AppConstants.cleaningCategoryList[index].image,
-                  height: 150.0,
+                  height: 150.0, 
                   width: 150.0,
-                  fit: BoxFit.fill,
+                  fit: BoxFit.cover, 
                 ),
               ),
               const SizedBox(
-                height: 4,
+                height: 5,
               ),
               Center(
-                child: Container(
-                  padding: const EdgeInsets.all(4),
-                  decoration: BoxDecoration(
-                    color: ColorManager.primaryColor,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: FittedBox(
-                    child: Text(
-                      AppConstants.cleaningCategoryList[index].title,
-                      style: AppStyles.styleSemiBold20(context).copyWith(
-                        color: Colors.white,
+                child: Expanded(
+                  child: Container(
+                    width: 120,
+                    height: 25,
+                    padding: const EdgeInsets.all(1.8),
+                    decoration: BoxDecoration(
+                      color: ColorManager.primaryColor,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: FittedBox(
+                      child: Text(
+                        AppConstants.cleaningCategoryList[index].title,
+                        style: AppStyles.styleSemiBold20(context).copyWith(
+                          color: Colors.white,
+                        ),
                       ),
                     ),
                   ),

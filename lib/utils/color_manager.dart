@@ -9,7 +9,7 @@ class ColorManager {
   static const Color darkScaffoldColor = Color.fromARGB(255, 9, 3, 27);
   static const Color darkPrimary = Color.fromARGB(255, 94, 75, 236);
   static const Color primaryColor = Color(0xff44C09D);
-  static const Color secondaryPrimaryColor = Color.fromARGB(255, 152, 242, 217);
+  static const Color secondaryPrimaryColor = Color.fromARGB(255, 110, 212, 183);
 }
 
 Color primary = Color(hexColor('#749BFA'));

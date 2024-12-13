@@ -54,6 +54,15 @@ class Assets {
   /// assets/images/banners/banner2.png
   static const String imagesBannersBanner2 = "assets/images/banners/banner2.png";
 
+
+  /// Assets for imagesSwiper1
+  static const String imagesSwiper1 = "assets/images/Swiper/16347-home-cleaning.webp";
+  /// Assets for imagesSwiper2
+  static const String imagesSwiper2 = "assets/images/Swiper/cleaning-services.jpg";
+  /// Assets for imagesSwiper3
+  static const String imagesSwiper3 = "assets/images/Swiper/download.jpg";
+
+
   /// Assets for imagesBell
   /// assets/images/Bell.png
   static const String imagesBell = "assets/images/Bell.png";

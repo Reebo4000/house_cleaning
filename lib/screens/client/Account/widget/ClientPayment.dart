@@ -1,8 +1,11 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
 import 'package:house_cleaning/utils/color_manager.dart';
 
-class PaymentPage extends StatelessWidget {
-  const PaymentPage({super.key});
+
+class Clientpayment extends StatelessWidget {
+  const Clientpayment({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +28,6 @@ class PaymentPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // تفاصيل الدفع
             Text(
               'Order Summary',
               style: TextStyle(
@@ -67,8 +69,6 @@ class PaymentPage extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 20),
-
-            // خيارات الدفع
             Text(
               'Payment Method',
               style: TextStyle(
@@ -89,13 +89,9 @@ class PaymentPage extends StatelessWidget {
               ],
             ),
             const Spacer(),
-
-            // زر الدفع
             Center(
               child: ElevatedButton(
-                onPressed: () {
-                  // تنفيذ عملية الدفع
-                },
+                onPressed: () {},
                 style: ElevatedButton.styleFrom(
                   backgroundColor: ColorManager.primaryColor,
                   padding: const EdgeInsets.symmetric(
@@ -143,4 +139,3 @@ class PaymentPage extends StatelessWidget {
     );
   }
 }
-

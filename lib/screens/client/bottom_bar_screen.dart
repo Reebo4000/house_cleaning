@@ -5,7 +5,7 @@ import 'package:house_cleaning/screens/client/Booking/Booking_Screen.dart';
 import 'package:house_cleaning/screens/client/home/home_screen.dart';
 import 'package:house_cleaning/screens/client/profile/Profile_Screen.dart';
 import 'package:house_cleaning/utils/color_manager.dart';
-
+import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 
 class BottomBarScreen extends StatefulWidget {
   const BottomBarScreen({super.key});
@@ -19,7 +19,7 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
   List<Widget> pages = [
     const HomeScreenWidget(),
     const BookingScreen(),
-    const ProfileScreen(),
+    ProfilePage(),
     AccountScreen(),
   ];
   int currentPageIndex = 0;
@@ -45,57 +45,51 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
         controller: controller,
         children: pages,
       ),
-      bottomNavigationBar: NavigationBar(
-        indicatorShape: const CircleBorder(),
-        indicatorColor: const Color.fromARGB(255, 40, 228, 175),
+      bottomNavigationBar: ConvexAppBar(
         backgroundColor: ColorManager.primaryColor,
-        elevation: 0,
-        height: kBottomNavigationBarHeight,
-        selectedIndex: currentPageIndex,
-        onDestinationSelected: (index) {
-          setState(() {
-            currentPageIndex = index;
-            controller.jumpToPage(currentPageIndex);
-          });
-        },
-        destinations: const [
-          NavigationDestination(
-            icon: Icon(
-              IconlyLight.home,
-            ),
-            label: 'Home',
-            selectedIcon: Icon(IconlyBold.home),
+        elevation: 10,
+        height: 60,
+        style: TabStyle.react,
+        items: const [
+          TabItem(
+            icon: Icon(IconlyLight.home),
+            title: 'Home',
+            activeIcon: Icon(IconlyBold.home),
           ),
-          NavigationDestination(
+          TabItem(
             icon: Badge(
               label: Text(
                 "3",
-                // "${cartProvider.getCartItems.length}",
                 style: TextStyle(fontSize: 15, color: Colors.yellow),
               ),
               child: Icon(IconlyLight.bag2),
             ),
-            label: 'Booking',
-            selectedIcon: Badge(
+            title: 'Booking',
+            activeIcon: Badge(
               label: Text(
-                "3",
-                // "${cartProvider.getCartItems.length}",
+                "3", // Dynamic badge count
                 style: TextStyle(fontSize: 15, color: Colors.yellow),
               ),
               child: Icon(IconlyBold.chart),
             ),
           ),
-          NavigationDestination(
+          TabItem(
             icon: Icon(IconlyLight.profile),
-            label: 'Profile',
-            selectedIcon: Icon(IconlyBold.profile),
+            title: 'Profile',
+            activeIcon: Icon(IconlyBold.profile),
           ),
-          NavigationDestination(
+          TabItem(
             icon: Icon(Icons.menu_sharp),
-            label: 'Account',
-            selectedIcon: Icon(Icons.menu_open_sharp),
+            title: 'Account',
+            activeIcon: Icon(Icons.menu_open_sharp),
           ),
         ],
+        onTap: (index) {
+          setState(() {
+            currentPageIndex = index;
+            controller.jumpToPage(currentPageIndex);
+          });
+        },
       ),
     );
   }

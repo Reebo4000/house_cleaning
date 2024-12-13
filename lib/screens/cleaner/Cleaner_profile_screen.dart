@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:house_cleaning/screens/Client&Cleaner_Widgets/About_Screen.dart';
 import 'package:house_cleaning/screens/Client&Cleaner_Widgets/GetHelp_Screen.dart';
 import 'package:house_cleaning/screens/Client&Cleaner_Widgets/settings/setting.dart';
-import 'package:house_cleaning/screens/Client&Cleaner_Widgets/settings/widgets/Payment.dart';
+import 'package:house_cleaning/screens/cleaner/widget/cleaner_Payment.dart';
 import 'package:house_cleaning/screens/client/Booking/widgets/Read_booking.dart';
 import 'package:house_cleaning/utils/app_styles.dart';
 import 'package:house_cleaning/utils/color_manager.dart';
@@ -65,7 +65,7 @@ class _CleanerProfilePageState extends State<CleanerProfilePage> {
               child: Image.asset(Assets.imagesLogoSplashNoTitle),
             ),
             ListTile(
-              leading: const Icon(Icons.book),
+              leading: const Icon(Icons.book,color: ColorManager.secondaryPrimaryColor),
               title: const Text('Reservations'),
               onTap: () {
                 Navigator.pushReplacement(
@@ -77,26 +77,26 @@ class _CleanerProfilePageState extends State<CleanerProfilePage> {
               },
             ),
             ListTile(
-              leading: const Icon(Icons.person),
+              leading: const Icon(Icons.person,color: ColorManager.secondaryPrimaryColor),
               title: const Text('Profile'),
               onTap: () {
                 // Navigate to profile
               },
             ),
             ListTile(
-              leading: const Icon(Icons.payment),
+              leading: const Icon(Icons.payment,color: ColorManager.secondaryPrimaryColor),
               title: const Text('Your Payment'),
               onTap: () {
                 Navigator.pushReplacement(
                   context,
-                  MaterialPageRoute(builder: (context) => const PaymentPage()),
+                  MaterialPageRoute(builder: (context) =>  CleanerPaymentPage()),
                 );
                 _scaffoldKey.currentState?.closeDrawer();
                 setState(() {});
               },
             ),
             ListTile(
-              leading: const Icon(Icons.help),
+              leading: const Icon(Icons.help,color: ColorManager.secondaryPrimaryColor),
               title: const Text('Help'),
               onTap: () {
                 Navigator.pushReplacement(
@@ -108,7 +108,7 @@ class _CleanerProfilePageState extends State<CleanerProfilePage> {
               },
             ),
             ListTile(
-              leading: const Icon(Icons.info),
+              leading: const Icon(Icons.info,color: ColorManager.secondaryPrimaryColor),
               title: const Text('About'),
               onTap: () {
                 Navigator.pushReplacement(
@@ -120,7 +120,7 @@ class _CleanerProfilePageState extends State<CleanerProfilePage> {
               },
             ),
             ListTile(
-              leading: const Icon(Icons.settings),
+              leading: const Icon(Icons.settings,color: ColorManager.secondaryPrimaryColor),
               title: const Text('Settings'),
               onTap: () {
                 Navigator.pushReplacement(
@@ -132,7 +132,7 @@ class _CleanerProfilePageState extends State<CleanerProfilePage> {
               },
             ),
             ListTile(
-              leading: const Icon(Icons.logout),
+              leading: const Icon(Icons.logout,color: Colors.redAccent),
               title: const Text('Sign Out'),
               onTap: () {
                 Navigator.pushReplacementNamed(

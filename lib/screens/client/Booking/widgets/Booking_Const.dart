@@ -14,6 +14,12 @@ const List<String> provinceList = [
   'Aswan',
 ];
 
+const List<String> serviceList = [
+  "Deep Cleaning",
+  "Regular Cleaning",
+  "Carpet Cleaning",
+  "Laundry Cleaning",
+];
 const List<String> durationList = [
   '2 hr.',
   '3 hr.',

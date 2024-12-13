@@ -3,7 +3,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class ThemeProvider with ChangeNotifier {
   ThemeProvider() {
-    // => نقوم باستدعاء ال getTheme() في الكونستركتور وذلك عند عمل ريستارت للتطبيق يحافظ على شكله
+    // _darktheme = false;
     getTheme();
   }
   static const String themeValueKey = "ThemeValueKey";

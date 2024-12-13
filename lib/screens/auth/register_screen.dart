@@ -268,7 +268,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
                         if (CacheHelper.getData(key: "user_role") ==
                             "Cleaner") {
-                          Navigator.of(context).pushReplacementNamed(
+                          Navigator.of(context).pushNamed(
                             ContinueRegisterationScreen
                                 .continueRegisterationRoute,
                           );

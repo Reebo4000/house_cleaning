@@ -44,7 +44,6 @@ dependencies:
   google_maps_flutter: ^2.2.0
   flutter_facebook_auth: ^7.1.1
   flutter_iconly: ^1.0.2
-  flutter_screenutil: ^5.9.3
   flutter_svg: ^2.0.14
   fluttertoast: ^8.2.4
   font_awesome_flutter: ^10.8.0
@@ -62,6 +61,9 @@ dependencies:
   uuid: ^4.5.1
   geolocator: ^13.0.2
   geocoding: ^3.0.0
+  universal_io: ^2.2.2
+  sizer: ^3.0.4
+  convex_bottom_bar: ^3.2.0
   
 dev_dependencies:
   flutter_lints: ^4.0.0
@@ -83,6 +85,7 @@ flutter:
     - assets/images/banners/
     - assets/images/categories/
     - assets/images/profile/
+    - assets/images/Swiper/
     - assets/fonts/
 
   #   - images/a_dot_ham.jpeg

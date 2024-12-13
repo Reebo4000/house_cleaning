@@ -10,7 +10,7 @@ import 'package:house_cleaning/utils/shared_preferences.dart';
 import 'package:house_cleaning/screens/auth/login_screen.dart';
 import 'package:house_cleaning/provider/user_role_provider.dart';
 import 'package:house_cleaning/screens/auth/widgets/custom_elevated_button.dart';
-import 'package:house_cleaning/screens/cleaner/drawer_items/cleaner_profile_screen.dart';
+import 'package:house_cleaning/screens/cleaner/Cleaner_profile_screen.dart';
 
 class RoleSelectionPage extends StatefulWidget {
   const RoleSelectionPage({super.key});
