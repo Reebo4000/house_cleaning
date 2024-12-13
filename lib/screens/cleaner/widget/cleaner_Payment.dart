@@ -1,18 +1,15 @@
 // ignore_for_file: use_key_in_widget_constructors, prefer_const_constructors, file_names
 
 import 'package:flutter/material.dart';
+import 'package:house_cleaning/utils/color_manager.dart';
 
 class CleanerPaymentPage extends StatelessWidget {
-  static const Color darkPrimary = Color.fromARGB(255, 94, 75, 236);
-  static const Color primaryColor = Color(0xff44C09D);
-  static const Color secondaryPrimaryColor = Color.fromARGB(255, 152, 242, 217);
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: darkPrimary,
+      backgroundColor: ColorManager.lightCardColor,
       appBar: AppBar(
-        backgroundColor: primaryColor,
+        backgroundColor: ColorManager.primaryColor,
         title: Text(
           'Payment Details',
           style: TextStyle(
@@ -31,7 +28,7 @@ class CleanerPaymentPage extends StatelessWidget {
               Container(
                 padding: EdgeInsets.all(20),
                 decoration: BoxDecoration(
-                  color: secondaryPrimaryColor,
+                  color: ColorManager.secondaryPrimaryColor,
                   borderRadius: BorderRadius.circular(20),
                   boxShadow: const [
                     BoxShadow(
@@ -49,7 +46,7 @@ class CleanerPaymentPage extends StatelessWidget {
                       style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
-                        color: darkPrimary,
+                        color: ColorManager.darkPrimary,
                       ),
                     ),
                     SizedBox(height: 10),
@@ -66,7 +63,7 @@ class CleanerPaymentPage extends StatelessWidget {
                       style: TextStyle(
                         fontSize: 32,
                         fontWeight: FontWeight.bold,
-                        color: primaryColor,
+                        color: ColorManager.primaryColor,
                       ),
                     ),
                   ],
@@ -76,7 +73,7 @@ class CleanerPaymentPage extends StatelessWidget {
               ElevatedButton(
                 onPressed: () {},
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: primaryColor,
+                  backgroundColor: ColorManager.primaryColor,
                   padding: EdgeInsets.symmetric(horizontal: 40, vertical: 15),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),

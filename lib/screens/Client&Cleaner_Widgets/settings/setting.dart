@@ -140,7 +140,7 @@ class SettingsPage extends StatelessWidget {
           title: Text('Select Country'),
           content: SingleChildScrollView(
             child: Column(
-              children: ['USA', 'Egypt', 'France', 'India', 'China']
+              children: ['USA', 'Egypt', 'Saudi', 'Russia', 'China']
                   .map((country) => ListTile(
                         title: Text(country),
                         onTap: () {
